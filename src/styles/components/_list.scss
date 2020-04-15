@@ -1,0 +1,83 @@
+.list-header {
+  border-bottom: 1px solid black;
+  color: black;
+  display: flex;
+  font-weight: bold;
+  justify-content: space-between;
+  padding: $s-size $m-size;
+}
+
+.list-body {
+  margin-bottom: $m-size;
+  @media (min-width: $desktop-breakpoint) {
+    margin-bottom: $l-size;
+  }
+}
+
+.list-item {
+  display: flex;
+  flex-direction: column;
+  padding: $s-size $m-size;
+  transition: background .3s ease;
+  &:hover {
+    background: $off-white;
+  }
+  @media (min-width: $desktop-breakpoint) {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: $s-size $m-size;
+  }
+}
+
+.list-item--message {
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  &:hover {
+    background: none;
+  }
+}
+
+.list-item__title {
+  color: black;
+  font-size: $font-size-large;
+  text-decoration: none;
+  word-break: break-all;
+  @media (min-width: $desktop-breakpoint) {
+    font-size: 16px;
+    width: 40%;
+  }
+}
+
+.list-item__dates {
+  color: black;
+  padding: 0 $s-size;
+  text-decoration: none;
+  @media (min-width: $desktop-breakpoint) {
+    padding: 0;
+    width: 30%;
+  }
+}
+
+.list-item__location {
+  color: black;
+  padding: 0 $s-size;
+  text-decoration: none;
+  @media (min-width: $desktop-breakpoint) {
+    padding: 0;
+    width: 20%;
+  }
+}
+.list-item__delete {
+  padding: 0 $s-size;
+  text-align: center;
+  @media (min-width: $desktop-breakpoint) {
+    padding: 0;
+    width: 10%;
+  }
+}
+
+.delete-icon {
+  cursor: pointer;
+}
