@@ -67,6 +67,8 @@ class TripDashboardPage extends React.Component {
   };
 };
 
+Modal.setAppElement('body')
+
 const mapStateToProps = (state) => ({
   trips: state.trips
 });

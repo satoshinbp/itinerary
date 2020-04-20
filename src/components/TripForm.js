@@ -1,6 +1,7 @@
 import React from 'react';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
+import 'react-dates/initialize';
 import moment from 'moment';
 
 export default class TripForm extends React.Component {
@@ -55,7 +56,9 @@ export default class TripForm extends React.Component {
         />
         <DateRangePicker
           startDate={this.state.startDate}
+          startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
           endDate={this.state.endDate}
+          endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
           onDatesChange={this.onDatesChange}
           focusedInput={this.state.focusedInput}
           onFocusChange={this.onFocusChange}

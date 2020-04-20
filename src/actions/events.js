@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment';
 
 // ADD_EVENT
@@ -15,7 +15,7 @@ export const addEvent = (
 ) => ({
   type: 'ADD_EVENT',
   event: {
-    id: uuid(),
+    id: uuidv4(),
     tripId,
     title,
     date,
