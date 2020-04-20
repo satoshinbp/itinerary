@@ -18,8 +18,8 @@ export default (state = tripsReducerDefaultState, action) => {
           return trip;
         }
       });
-    case 'REMOVE_TRIP':
-      return state.filter(({ id }) => id !== action.id);
+      case 'REMOVE_TRIP':
+        return state.filter(({ id }) => id !== action.id);
     default:
       return state;
   }

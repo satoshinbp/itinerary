@@ -6,9 +6,7 @@ export const addTrip = (
   {
     title = '',
     startDate = moment(),
-    endDate = moment(),
-    location = '',
-    note = ''
+    endDate = moment()
   } = {}
 ) => ({
   type: 'ADD_TRIP',
@@ -16,9 +14,7 @@ export const addTrip = (
     id: uuid(),
     title,
     startDate,
-    endDate,
-    location,
-    note
+    endDate
   }
 });
 
@@ -34,7 +30,3 @@ export const removeTrip = ({ id } = {}) => ({
   type: 'REMOVE_TRIP',
   id
 });
-
-// ADD_EVENT_TO_TRIP
-// EDIT_EVENT_OF_TRIP
-// REMOVE_EVENT_FROM_TRIP

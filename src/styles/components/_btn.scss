@@ -1,3 +1,8 @@
+.btn-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
 .btn-link {
   background: none;
   border: none;
@@ -16,10 +21,8 @@
   display: inline-block;
   font-size: $font-size-medium;
   font-weight: bold;
-  margin-bottom: $s-size;
+  margin: $s-size 0;
   padding: $s-size $m-size;
-  text-align: left;
-  text-decoration: none;
   &:active {
     transform: translateY(4px);
     border-bottom: none;
@@ -27,8 +30,16 @@
   }
 }
 
+.btn-push--small {
+  font-size: $font-size-small;
+  margin: 0;
+  padding: $xs-size $s-size;
+  &:active {
+    margin-bottom: 4px;
+  }
+}
+
 .btn-push--secondary {
-  @extend .btn-push ;
   background: #888;
   border-bottom: 4px solid darken(#888, 7%);
   margin-top: - $s-size;

@@ -2,7 +2,8 @@
   border: 1px solid #cacccd;
   height: 46px;
   font-size: $font-size-medium;
-  padding: $s-size;
+  margin: $s-size 0;
+  padding: $s-size $m-size;
 }
 
 .select {

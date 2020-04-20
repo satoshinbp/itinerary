@@ -1,6 +1,5 @@
 .list-header {
   border-bottom: 1px solid black;
-  color: black;
   display: flex;
   font-weight: bold;
   justify-content: space-between;
@@ -23,15 +22,13 @@
     background: $off-white;
   }
   @media (min-width: $desktop-breakpoint) {
-    align-items: center;
     flex-direction: row;
-    justify-content: space-between;
-    padding: $s-size $m-size;
   }
 }
 
 .list-item--message {
   align-items: center;
+  color: $grey;
   justify-content: center;
   text-decoration: none;
   &:hover {
@@ -39,8 +36,16 @@
   }
 }
 
+.list-item__actions {
+  padding: 0 $s-size;
+  text-decoration: none;
+  @media (min-width: $desktop-breakpoint) {
+    width: 20%;
+  }
+}
+
 .list-item__title {
-  color: black;
+  color: $dark-grey;
   font-size: $font-size-large;
   text-decoration: none;
   word-break: break-all;
@@ -51,33 +56,17 @@
 }
 
 .list-item__dates {
-  color: black;
+  color: $dark-grey;
   padding: 0 $s-size;
   text-decoration: none;
   @media (min-width: $desktop-breakpoint) {
-    padding: 0;
-    width: 30%;
+    width: 40%;
   }
 }
 
-.list-item__location {
-  color: black;
-  padding: 0 $s-size;
-  text-decoration: none;
-  @media (min-width: $desktop-breakpoint) {
-    padding: 0;
-    width: 20%;
-  }
-}
-.list-item__delete {
-  padding: 0 $s-size;
-  text-align: center;
-  @media (min-width: $desktop-breakpoint) {
-    padding: 0;
-    width: 10%;
-  }
-}
-
-.delete-icon {
+.icon {
   cursor: pointer;
+  color: black;
+  margin-right: $m-size;
+  text-decoration: none;
 }
