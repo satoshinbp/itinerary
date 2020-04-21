@@ -1,81 +1,53 @@
-import React from 'react';
-import Modal from 'react-modal';
-import { connect } from 'react-redux';
-import TripListFilters from './TripListFilters';
-import TripList from './TripList';
-import TripForm from './TripForm';
-import { addTrip, editTrip } from '../actions/trips';
+import React, { useState } from 'react'
+import Modal from 'react-modal'
+import { connect } from 'react-redux'
+import { v4 as uuidv4 } from 'uuid'
+import TripListFilters from './TripListFilters'
+import TripList from './TripList'
+import TripForm from './TripForm'
+import { addTrip, editTrip } from '../actions/trips'
 
-class TripDashboardPage extends React.Component {
-  state = {
-    addTripIsActivated: false,
-    editTripId: undefined
-  };
+const TripDashboardPage = (props) => {
+  const [tripId, setTripId] = useState(undefined)
 
-  activateAddTrip = () => {
-    this.setState(() => ({ addTripIsActivated: true }));
-  };
-  deactivateAddTrip = () => {
-    this.setState(() => ({ addTripIsActivated: false }));
-  }
-  activateEditTrip = (id) => {
-    this.setState(() => ({ editTripId: id }));
-  };
-  deactivateEditTrip = () => {
-    this.setState(() => ({ editTripId: undefined }));
-  };
-
-  render() {
-    return (
-      <div className="container">
-        <div className="btn-bar">
-          <TripListFilters />
-          <button className="btn-push" onClick={this.activateAddTrip}>Add Trip</button>
-        </div>
-        <TripList activateEditTrip={this.activateEditTrip} />
-        <Modal
-          isOpen={!!this.state.addTripIsActivated}
-          contentLabel="Add Trip"
-          onRequestClose={this.deactivateAddTrip}
-          closeTimeoutMS={200}
-          className="modal"
-        >
-          <TripForm
-            onSubmit={(trip) => {
-              this.props.addTrip(trip);
-              this.deactivateAddTrip();
-            }}
-          />
-        </Modal>
-        <Modal
-          isOpen={!!this.state.editTripId}
-          contentLabel="Edit Trip"
-          onRequestClose={this.deactivateEditTrip}
-          closeTimeoutMS={200}
-          className="modal"
-        >
-          <TripForm
-            onSubmit={(trip) => {
-              this.props.editTrip(this.state.editTripId, trip);
-              this.deactivateEditTrip();
-            }}
-            trip={this.props.trips.find((trip) => trip.id === this.state.editTripId)}
-          />
-        </Modal>
+  return (
+    <div className="container">
+      <div className="btn-bar">
+        <TripListFilters />
+        <button className="btn-push" onClick={() => setTripId(uuidv4())}>Add Trip</button>
       </div>
-    );
-  };
-};
+      <TripList setTripId={setTripId} />
+      <Modal
+        isOpen={!!tripId}
+        contentLabel="Add/Edit Trip"
+        onRequestClose={() => setTripId(undefined)}
+        closeTimeoutMS={200}
+        className="modal"
+      >
+        <TripForm
+          onSubmit={(value) => {
+            if (props.trips.find((trip) => trip.id === tripId)) {
+              props.editTrip(tripId, value)
+            } else {
+              props.addTrip(value)
+            }
+            setTripId(undefined)
+          }}
+          tripId={tripId}
+          trip={props.trips.find((trip) => trip.id === tripId)}
+        />
+      </Modal>
+    </div>
+  );
+}
 
 Modal.setAppElement('body')
 
-const mapStateToProps = (state) => ({
-  trips: state.trips
-});
+const mapStateToProps = state => ({ trips: state.trips })
 
-const mapDispatchToProps = (dispatch) => ({
-  addTrip: (trip) => dispatch(addTrip(trip)),
+const mapDispatchToProps = dispatch => ({
+  addTrip: trip => dispatch(addTrip(trip)),
   editTrip: (id, updates) => dispatch(editTrip(id, updates))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TripDashboardPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TripDashboardPage)

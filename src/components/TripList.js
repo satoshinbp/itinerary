@@ -1,7 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import TripListItem from './TripListItem';
-import selectTrips from '../selectors/trips';
+import React from 'react'
+import { connect } from 'react-redux'
+import TripListItem from './TripListItem'
+import selectTrips from '../selectors/trips'
 
 const TripList = (props) => (
   <div>
@@ -13,24 +13,17 @@ const TripList = (props) => (
     </div>
     <div className="list-body">
       {
-        props.trips.length === 0 ? (
+        props.trips.length === 0 ?
           <div className="list-item list-item--message">
             <span>No trips</span>
           </div>
-        ) : (
-            props.trips.map((trip) => {
-              return <TripListItem key={trip.id} {...trip} activateEditTrip={props.activateEditTrip}/>;
-            })
-          )
+          :
+          props.trips.map((trip) => <TripListItem key={trip.id} {...trip} setTripId={props.setTripId} />)
       }
     </div>
   </div>
 );
 
-const mapStateToProps = (state) => {
-  return {
-    trips:  selectTrips(state.trips, state.filters)
-  };
-};
+const mapStateToProps = state => ({ trips: selectTrips(state.trips, state.filters) })
 
-export default connect(mapStateToProps)(TripList);
+export default connect(mapStateToProps)(TripList)

@@ -1,9 +1,8 @@
-import { v4 as uuidv4 } from 'uuid';
-import moment from 'moment';
+import moment from 'moment'
 
-// ADD_EVENT
 export const addEvent = (
   {
+    id='',
     tripId = '',
     title = '',
     date = moment().startOf('day'),
@@ -15,7 +14,7 @@ export const addEvent = (
 ) => ({
   type: 'ADD_EVENT',
   event: {
-    id: uuidv4(),
+    id,
     tripId,
     title,
     date,
@@ -24,17 +23,15 @@ export const addEvent = (
     location,
     note
   }
-});
+})
 
-// EDIT_EVENT
 export const editEvent = (id, updates) => ({
   type: 'EDIT_EVENT',
   id,
   updates
-});
+})
 
-// REMOVE_EVENT
 export const removeEvent = ({ id } = {}) => ({
   type: 'REMOVE_EVENT',
   id
-});
+})

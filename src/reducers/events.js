@@ -1,6 +1,4 @@
-import moment from "moment";
-
-const eventsReducerDefaultState = [];
+const eventsReducerDefaultState = []
 
 export default (state = eventsReducerDefaultState, action) => {
   switch (action.type) {
@@ -8,7 +6,7 @@ export default (state = eventsReducerDefaultState, action) => {
       return [
         ...state,
         action.event
-      ];
+      ]
     case 'EDIT_EVENT':
       return state.map((event) => {
         if (event.id === action.id) {
@@ -17,12 +15,12 @@ export default (state = eventsReducerDefaultState, action) => {
             ...action.updates
           }
         } else {
-          return event;
+          return event
         }
-      });
+      })
     case 'REMOVE_EVENT':
-      return state.filter(({ id }) => id !== action.id);
+      return state.filter(({ id }) => id !== action.id)
     default:
-      return state;
+      return state
   }
-};
+}

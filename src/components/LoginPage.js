@@ -1,7 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { startLogin } from '../actions/auth';
-import GoogleButton from 'react-google-button';
+import React from 'react'
+import { connect } from 'react-redux'
+import { startLogin } from '../actions/auth'
+import GoogleButton from 'react-google-button'
 
 export const LoginPage = ({ startLogin }) => (
   <div className="box-layout">
@@ -11,10 +11,10 @@ export const LoginPage = ({ startLogin }) => (
       <GoogleButton className="btn-google-signin" onClick={startLogin} />
     </div>
   </div>
-);
+)
 
 const mapDispatchToProps = (dispatch) => ({
   startLogin: () => dispatch(startLogin())
-});
+})
 
-export default connect(undefined, mapDispatchToProps)(LoginPage);
+export default connect(undefined, mapDispatchToProps)(LoginPage)

@@ -1,21 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { removeTrip } from '../actions/trips';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { removeTrip } from '../actions/trips'
 
-const TripListItem = ({ dispatch, id, title, startDate, endDate, activateEditTrip }) => (
+const TripListItem = ({ dispatch, id, title, startDate, endDate, setTripId }) => (
   <div className="list-item">
     <div className="list-item__actions">
       <FontAwesomeIcon
         className="icon show-for-desktop"
         icon="edit"
-        onClick={() => { activateEditTrip(id) }}
+        onClick={() => setTripId(id)}
       />
       <FontAwesomeIcon
         className="icon show-for-desktop"
         icon="trash-alt"
-        onClick={() => { dispatch(removeTrip({ id })) }}
+        onClick={() => dispatch(removeTrip({ id }))}
       />
     </div>
     <Link className="list-item__title" to={`/schedule/${id}`}>{title}</Link>
@@ -27,6 +27,6 @@ const TripListItem = ({ dispatch, id, title, startDate, endDate, activateEditTri
       }
     </Link>
   </div>
-);
+)
 
-export default connect()(TripListItem);
+export default connect()(TripListItem)

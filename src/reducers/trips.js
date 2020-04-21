@@ -1,4 +1,4 @@
-const tripsReducerDefaultState = [];
+const tripsReducerDefaultState = []
 
 export default (state = tripsReducerDefaultState, action) => {
   switch (action.type) {
@@ -6,7 +6,7 @@ export default (state = tripsReducerDefaultState, action) => {
       return [
         ...state,
         action.trip
-      ];
+      ]
     case 'EDIT_TRIP':
       return state.map((trip) => {
         if (trip.id === action.id) {
@@ -15,12 +15,12 @@ export default (state = tripsReducerDefaultState, action) => {
             ...action.updates
            }
         } else {
-          return trip;
+          return trip
         }
-      });
+      })
       case 'REMOVE_TRIP':
-        return state.filter(({ id }) => id !== action.id);
+        return state.filter(({ id }) => id !== action.id)
     default:
-      return state;
+      return state
   }
-};
+}
