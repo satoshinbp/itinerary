@@ -30,20 +30,24 @@
   }
 }
 
+.form > .btn-push {
+  margin-top: 0;
+}
+
 .btn-push--small {
   font-size: $font-size-small;
-  margin: 0;
+  margin: 0 0 0 $xs-size;
   padding: $xs-size $s-size;
   &:active {
     margin-bottom: 4px;
   }
 }
 
-.btn-push--secondary {
-  background: #888;
-  border-bottom: 4px solid darken(#888, 7%);
-  margin-top: - $s-size;
-}
+// .btn-push--secondary {
+//   background: #888;
+//   border-bottom: 4px solid darken(#888, 7%);
+//   margin-top: - $s-size;
+// }
 
 .btn-google-signin {
   display: inline-block;

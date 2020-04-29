@@ -1,0 +1,70 @@
+.trip-list-header {
+  border-bottom: 1px solid black;
+  display: flex;
+  font-weight: bold;
+  justify-content: space-between;
+  padding: $s-size $m-size;
+}
+
+.trip-list-body {
+  margin-bottom: $l-size;
+  @media (max-width: $desktop-breakpoint) {
+    margin-bottom: $m-size;
+  }
+}
+
+.trip-list-item {
+  border-bottom: 1px solid $light-grey;
+  display: flex;
+  padding: $s-size $m-size;
+  transition: background-color .3s ease;
+  &:hover {
+    background: $off-white;
+  }
+  @media (max-width: $desktop-breakpoint) {
+    flex-direction: column;
+  }
+}
+
+.trip-list-item--message {
+  align-items: center;
+  border-bottom: none;
+  color: $grey;
+  justify-content: center;
+  text-decoration: none;
+  &:hover {
+    background: none;
+  }
+}
+
+.trip-list-item__actions {
+  display: flex;
+  text-decoration: none;
+  width: 20%;
+  @media (max-width: $desktop-breakpoint) {
+    font-size: $font-size-large;
+    justify-content: center;
+    width: auto;
+  }
+}
+
+.trip-list-item__title {
+  color: $dark-grey;
+  text-decoration: none;
+  width: 40%;
+  word-break: break-all;
+  @media (max-width: $desktop-breakpoint) {
+    font-size: $font-size-large;
+    width: auto;
+  }
+}
+
+.trip-list-item__dates {
+  color: $dark-grey;
+  text-decoration: none;
+  width: 40%;
+  @media (max-width: $desktop-breakpoint) {
+    padding: 0 0 0 $s-size;
+    width: auto;
+  }
+}

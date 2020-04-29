@@ -4,6 +4,7 @@ import authReducer from '../reducers/auth'
 import filtersReducer from '../reducers/filters'
 import tripsReducer from '../reducers/trips'
 import eventsReducer from '../reducers/events'
+import hotelsReducer from '../reducers/hotels'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -13,7 +14,8 @@ export default () => {
       auth: authReducer,
       filters: filtersReducer,
       trips: tripsReducer,
-      events: eventsReducer
+      events: eventsReducer,
+      hotels: hotelsReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
   )

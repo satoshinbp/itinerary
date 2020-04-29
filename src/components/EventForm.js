@@ -1,22 +1,35 @@
 import React, { useState } from 'react'
 import { SingleDatePicker } from 'react-dates'
 import 'react-dates/lib/css/_datepicker.css'
-import TimePicker from 'rc-time-picker'
-import 'rc-time-picker/assets/index.css'
+import 'react-dates/initialize'
+import DateFnsUtils from '@date-io/date-fns'
+import { TimePicker, MuiPickersUtilsProvider} from '@material-ui/pickers'
 import moment from 'moment'
 
 export default (props) => {
   const id = props.event ? props.event.id : props.id
   const tripId = props.event ? props.event.tripId : props.tripId
   const [title, setTitle] = useState(props.event ? props.event.title : '')
-  const [date, setDate] = useState(props.event ? moment(props.event.date) : moment(props.date))
-  const [startTime, setStartTime] = useState(props.event ? props.event.startTime : moment(props.date))
-  const [endTime, setEndTime] = useState(props.event ? props.event.endTime : moment(props.date))
+  const [date, setDate] = useState(props.event ? props.event.date : moment(props.date))
+  const [startTime, setStartTime] = useState(props.event ? props.event.startTime : moment(props.date).hour(12).minutes(0))
+  const [endTime, setEndTime] = useState(props.event ? props.event.endTime : moment(props.date).hour(12).minutes(0))
   const [location, setLocation] = useState(props.event ? props.event.location : '')
   const [note, setNote] = useState(props.event ? props.event.note : '')
   const [focused, setFocused] = useState(null)
   const [error, setError] = useState('')
 
+  const onStartTimeChange = time => {
+    setStartTime(moment(time))
+    if (moment(time).isAfter(endTime)) {
+      setEndTime(moment(time))
+    }
+  }
+  const onEndTimeChange = time => {
+    setEndTime(moment(time))
+    if (moment(time).isBefore(startTime)) {
+      setStartTime(moment(time))
+    }
+  }
   const onSubmit = e => {
     e.preventDefault()
 
@@ -29,7 +42,7 @@ export default (props) => {
   }
 
   return (
-    <form onSubmit={onSubmit}>
+    <form className="form" onSubmit={onSubmit}>
       {error && <p className="form__error">{error}</p>}
       <input
         type="text"
@@ -39,32 +52,23 @@ export default (props) => {
         value={title}
         onChange={e => setTitle(e.target.value)}
       />
-      <div>
-        Date
-          <SingleDatePicker
+      <div className="date-time-picker">
+        <SingleDatePicker
           date={date}
           onDateChange={date => setDate(moment(date).startOf('day'))}
           focused={focused}
           onFocusChange={({ focused }) => setFocused(focused)}
+          isOutsideRange={() => false}
+          displayFormat="YYYY/MM/DD"
         />
       </div>
-      <div>
-        Start Time
-          <TimePicker
-          style={{ width: 150 }}
-          showSecond={false}
-          value={startTime}
-          onChange={time => setStartTime(moment(time))}
-        />
-      </div>
-      <div>
-        End Time
-          <TimePicker
-          style={{ width: 150 }}
-          showSecond={false}
-          value={endTime}
-          onChange={time => setEndTime(moment(time))}
-        />
+      <div className="date-time-picker">
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <TimePicker value={startTime} onChange={onStartTimeChange} label="Start Time" />
+        </MuiPickersUtilsProvider>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <TimePicker value={endTime} onChange={onEndTimeChange} label="End Time" />
+        </MuiPickersUtilsProvider>
       </div>
       <input
         type="text"
@@ -80,122 +84,7 @@ export default (props) => {
         onChange={e => setNote(e.target.value)}
       >
       </textarea>
-      <div>
-        <button className="btn-push">Save Event</button>
-      </div>
+      <button className="btn-push">Save Event</button>
     </form>
   )
 }
-
-// export default class EventForm extends React.Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       tripId: props.event ? props.event.tripId : props.tripId,
-//       title: props.event ? props.event.title : '',
-//       date: props.event ? moment(props.event.date) : moment(props.date),
-//       startTime: props.event ? moment(props.event.startTime) : moment(props.date),
-//       endTime: props.event ? moment(props.event.endTime) : moment(props.date),
-//       location: props.event ? props.event.location : '',
-//       note: props.event ? props.event.note : '',
-//       focused: null,
-//       error: '',
-//     };
-//   };
-
-//   onTitleChange = (e) => {
-//     const title = e.target.value;
-//     this.setState(() => ({ title }));
-//   };
-//   onDateChange = date => this.setState({ date: moment(date).startOf('day') });
-//   onStartTimeChange = time => this.setState({ startTime: moment(time) });
-//   onEndTimeChange = time => this.setState({ endTime: moment(time) });
-//   onLocationChange = (e) => {
-//     const location = e.target.value;
-//     this.setState(() => ({ location }));
-//   };
-//   onNoteChange = (e) => {
-//     const note = e.target.value;
-//     this.setState(() => ({ note }));
-//   };
-//   onFocusChange = ({ focused }) => this.setState({ focused });
-//   onSubmit = (e) => {
-//     e.preventDefault();
-
-//     if (!this.state.title) {
-//       this.setState(() => ({ error: 'Please provide title.' }));
-//     } else {
-//       this.setState(() => ({ error: '' }));
-//       this.props.onSubmit({
-//         tripId: this.state.tripId,
-//         title: this.state.title,
-//         date: this.state.date,
-//         startTime: this.state.startTime,
-//         endTime: this.state.endTime,
-//         location: this.state.location,
-//         note: this.state.note
-//       });
-//     }
-//   };
-
-//   render() {
-//     return (
-//       <form onSubmit={this.onSubmit}>
-//         {this.state.error && <p className="form__error">{this.state.error}</p>}
-//         <input
-//           type="text"
-//           placeholder="title"
-//           autoFocus
-//           className="text-input"
-//           value={this.state.title}
-//           onChange={this.onTitleChange}
-//         />
-//         <div>
-//           Date
-//           <SingleDatePicker
-//             date={this.state.date}
-//             onDateChange={this.onDateChange}
-//             focused={this.state.focused}
-//             onFocusChange={this.onFocusChange}
-//           />
-//         </div>
-//         <div>
-//           Start Time
-//           <TimePicker
-//             style={{ width: 150 }}
-//             showSecond={false}
-//             value={this.state.startTime}
-//             onChange={this.onStartTimeChange}
-//           />
-//         </div>
-//         <div>
-//           End Time
-//           <TimePicker
-//             style={{ width: 150 }}
-//             showSecond={false}
-//             value={this.state.endTime}
-//             onChange={this.onEndTimeChange}
-//           />
-//         </div>
-//         <input
-//           type="text"
-//           placeholder="location"
-//           className="text-input"
-//           value={this.state.location}
-//           onChange={this.onLocationChange}
-//         />
-//         <textarea
-//           placeholder="Add a note for your event (optional)"
-//           className="textarea"
-//           value={this.state.note}
-//           onChange={this.onNoteChange}
-//         >
-//         </textarea>
-//         <div>
-//           <button className="btn-push">Save Event</button>
-//         </div>
-//       </form>
-//     );
-//   }
-// }

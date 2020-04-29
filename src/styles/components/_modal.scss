@@ -4,9 +4,10 @@
 
 .ReactModalPortal .ReactModal__Overlay {
   align-items: center;
+  background-color: $light-grey;
   display: flex;
   justify-content: center;
-  transition: opacity 200ms ease-in-out;
+  transition: opacity 0ms ease-in-out;
 }
 
 .ReactModalPortal .ReactModal__Overlay--after-open {
@@ -17,12 +18,17 @@
   opacity: 0
 }
 
-.ReactModal__Body--open {
-  background: $grey;
-  transition: background 200ms ease-in-out;
-}
+// .ReactModal__Body--open {
+//   background: $light-grey;
+//   transition: background-color 0ms ease-in-out;
+// }
 
 .modal {
   background: white;
+  border-radius: 8px;
   padding: $s-size $m-size;
 }
+
+// .modal--fixed-width {
+//   width: px;
+// }

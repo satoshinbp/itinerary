@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux'
-import { v4 as uuidv4 } from 'uuid'
-import TripListFilters from './TripListFilters'
+import TripListButtons from './TripListButtons'
 import TripList from './TripList'
 import TripForm from './TripForm'
 import { addTrip, editTrip } from '../actions/trips'
@@ -10,12 +9,18 @@ import { addTrip, editTrip } from '../actions/trips'
 const TripDashboardPage = (props) => {
   const [tripId, setTripId] = useState(undefined)
 
+  const onSubmit = (trip) => {
+    if (props.trips.find((trip) => trip.id === tripId)) {
+      props.editTrip(tripId, trip)
+    } else {
+      props.addTrip(trip)
+    }
+    setTripId(undefined)
+  }
+
   return (
     <div className="container">
-      <div className="btn-bar">
-        <TripListFilters />
-        <button className="btn-push" onClick={() => setTripId(uuidv4())}>Add Trip</button>
-      </div>
+      <TripListButtons setTripId={setTripId} />
       <TripList setTripId={setTripId} />
       <Modal
         isOpen={!!tripId}
@@ -25,14 +30,7 @@ const TripDashboardPage = (props) => {
         className="modal"
       >
         <TripForm
-          onSubmit={(value) => {
-            if (props.trips.find((trip) => trip.id === tripId)) {
-              props.editTrip(tripId, value)
-            } else {
-              props.addTrip(value)
-            }
-            setTripId(undefined)
-          }}
+          onSubmit={onSubmit}
           tripId={tripId}
           trip={props.trips.find((trip) => trip.id === tripId)}
         />

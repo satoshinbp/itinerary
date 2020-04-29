@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { v4 as uuidv4 } from 'uuid'
 import { showUpcomingTrip, showPastTrip, showAllTrip } from '../actions/filters'
 
-const TripListFilters = (props) => {
+const TripListButtons = (props) => {
   const onFilterChange = e => {
     if (e.target.value === 'upcoming') {
       props.showUpcomingTrip()
@@ -14,15 +15,14 @@ const TripListFilters = (props) => {
   }
 
   return (
-    <select
-      className="select"
-      value={props.filters.filter}
-      onChange={onFilterChange}
-    >
-      <option value="upcoming">Upcoming Trip</option>
-      <option value="past">Past Trip</option>
-      <option value="all">All Trip</option>
-    </select>
+    <div className="btn-bar">
+      <select className="select" value={props.filters.filter} onChange={onFilterChange}>
+        <option className="option" value="upcoming">Upcoming Trip</option>
+        <option className="option" value="past">Past Trip</option>
+        <option className="option" value="all">All Trip</option>
+      </select>
+      <button className="btn-push" onClick={() => props.setTripId(uuidv4())}>Add Trip</button>
+    </div>
   )
 }
 
@@ -34,4 +34,4 @@ const mapDispatchToProps = dispatch => ({
   showAllTrip: () => dispatch(showAllTrip()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TripListFilters)
+export default connect(mapStateToProps, mapDispatchToProps)(TripListButtons)

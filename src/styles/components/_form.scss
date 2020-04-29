@@ -1,6 +1,7 @@
 form {
   display: flex;
   flex-direction: column;
+  padding-top: $s-size;
 }
 
 .form__error {

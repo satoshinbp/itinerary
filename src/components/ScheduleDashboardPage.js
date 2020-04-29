@@ -1,49 +1,127 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Modal from 'react-modal'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import ScheduleList from './ScheduleList'
+import EventForm from './EventForm'
+import HotelForm from './HotelForm'
+import { addEvent, editEvent } from '../actions/events'
+import { addHotel, editHotel } from '../actions/hotels'
 
-const ScheduleDashboardPage = (props) => {
-  const listAllDate = (events, params_start, params_end) => {
-    let dates = []
-    events.map((event) => {
-      if (event.date.isBefore(params_start) || event.date.isAfter(params_end)) {
-        dates.push(moment(event.date))
-      }
-    })
+const ScheduleDashboardPage = ({ trip, events, hotels, addEvent, editEvent, addHotel, editHotel }) => {
+  const [eventId, setEventId] = useState(undefined)
+  const [hotelId, setHotelId] = useState(undefined)
+  const [eventDate, setEventDate] = useState(moment())
+
+  const listAllDate = (dates, params_start, params_end) => {
     let start = moment(params_start)
+
     while (start.diff(params_end, 'day') <= 0) {
-      dates.push(moment(start))
+      if (!dates.find(date => date.isSame(start, 'day'))) {
+        dates.push(moment(start))
+      }
       start.add(1, 'day')
-    };
-    return dates.sort((a, b) => a.isAfter(b) ? 1 : -1)
-  };
+    }
+  }
+
+  let dates = []
+  listAllDate(dates, trip.startDate, trip.endDate)
+  events.map(event => {
+    if (!dates.find(date => date.isSame(event.date, 'day'))) {
+      dates.push(moment(event.date))
+    }
+  })
+  hotels.map(hotel => listAllDate(dates, hotel.checkInDate, hotel.checkOutDate))
+  dates.sort((a, b) => a.isAfter(b) ? 1 : -1)
 
   return (
     <div className="container">
       <div className="page-header__title">
-        <h3>{props.trip.title}</h3>
+        <h3>{trip.title}</h3>
         <p>
           {
-            props.trip.startDate.isSame(props.trip.endDate, 'day') ?
-              `${props.trip.startDate.format('YYYY/MM/DD')}` :
-              `${props.trip.startDate.format('YYYY/MM/DD')} - ${props.trip.endDate.format('YYYY/MM/DD')}`
+            trip.startDate.isSame(trip.endDate, 'day') ? (
+              `${trip.startDate.format('YYYY/MM/DD')}`
+            ) : (
+                `${trip.startDate.format('YYYY/MM/DD')} - ${trip.endDate.format('YYYY/MM/DD')}`
+              )
           }
         </p>
       </div>
-      <div>
+      {
+        dates.map((date, index) => (
+          <ScheduleList
+            key={index}
+            date={date}
+            tripId={trip.id}
+            setEventId={setEventId}
+            setHotelId={setHotelId}
+            setEventDate={setEventDate}
+          />
+        ))
+      }
+      <Modal
+        className="modal modal--fixed-width"
+        isOpen={!!eventId || !!hotelId}
+        contentLabel="Event/Hotel Form"
+        onRequestClose={() => {
+          setEventId(undefined)
+          setHotelId(undefined)
+          setEventDate(moment())
+        }}
+        closeTimeoutMS={200}
+      >
         {
-          listAllDate(props.events, props.trip.startDate, props.trip.endDate)
-          .map((date, index) => <ScheduleList key={index} date={date} tripId={props.trip.id} />)
+          !!eventId ? (
+            <EventForm
+              onSubmit={event => {
+                if (events.find(event => event.id === eventId)) {
+                  editEvent(eventId, event)
+                } else {
+                  addEvent(event)
+                }
+                setEventId(undefined)
+                setEventDate(moment())
+              }}
+              id={eventId}
+              tripId={trip.id}
+              date={eventDate}
+              event={events.find(event => event.id === eventId)}
+            />
+          ) : (
+              <HotelForm
+                onSubmit={hotel => {
+                  if (hotels.find(hotel => hotel.id === hotelId)) {
+                    editHotel(hotelId, hotel)
+                  } else {
+                    addHotel(hotel)
+                  }
+                  setHotelId(undefined)
+                  setEventDate(moment())
+                }}
+                id={hotelId}
+                tripId={trip.id}
+                date={eventDate}
+                hotel={hotels.find(hotel => hotel.id === hotelId)}
+              />
+            )
         }
-      </div>
+      </Modal>
     </div>
   )
 }
 
 const mapStateToProps = (state, props) => ({
-  trip: state.trips.find((trip) => trip.id === props.match.params.id),
-  events: state.events.filter((event) => event.tripId === props.match.params.id)
+  trip: state.trips.find(trip => trip.id === props.match.params.id),
+  events: state.events.filter(event => event.tripId === props.match.params.id),
+  hotels: state.hotels.filter(hotel => hotel.tripId === props.match.params.id)
 })
 
-export default connect(mapStateToProps)(ScheduleDashboardPage)
+const mapDispatchToProps = dispatch => ({
+  addEvent: event => dispatch(addEvent(event)),
+  editEvent: (id, updates) => dispatch(editEvent(id, updates)),
+  addHotel: hotel => dispatch(addHotel(hotel)),
+  editHotel: (id, updates) => dispatch(editHotel(id, updates))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ScheduleDashboardPage)

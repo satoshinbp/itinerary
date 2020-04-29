@@ -1,0 +1,9 @@
+.icon {
+  cursor: pointer;
+  color: black;
+  margin-right: $m-size;
+  text-decoration: none;
+  @media (max-width: $desktop-breakpoint) {
+    margin: 0 $l-size;
+  }
+}
