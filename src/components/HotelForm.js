@@ -21,6 +21,13 @@ export default (props) => {
   const [focusedInput, setFocusedInput] = useState(null)
   const [error, setError] = useState('')
 
+  let numberOfMonths
+  if (window.matchMedia("(min-width: 45rem)").matches) {
+    numberOfMonths = 2
+  } else {
+    numberOfMonths = 1
+  }
+  
   const onDatesChange = ({ startDate, endDate }) => {
     if (startDate) {
       setCheckInDate(moment(startDate))
@@ -39,7 +46,7 @@ export default (props) => {
       props.onSubmit({ id, tripId, name, checkInDate, checkOutDate, checkInTime, checkOutTime, ETA, ETD, location, note })
     }
   }
-
+  
   return (
     <form className="form" onSubmit={onSubmit}>
       {error && <p className="form__error">{error}</p>}
@@ -53,6 +60,7 @@ export default (props) => {
       />
       <div className="date-time-picker">
         <DateRangePicker
+          numberOfMonths={numberOfMonths}
           startDate={checkInDate}
           startDateId="check_in_date_id"
           endDate={checkOutDate}

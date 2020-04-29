@@ -4,7 +4,7 @@
 
 .ReactModalPortal .ReactModal__Overlay {
   align-items: center;
-  background-color: $light-grey;
+  background-color: rgba(204, 204, 204, 0.75) !important;
   display: flex;
   justify-content: center;
   transition: opacity 0ms ease-in-out;
@@ -18,17 +18,8 @@
   opacity: 0
 }
 
-// .ReactModal__Body--open {
-//   background: $light-grey;
-//   transition: background-color 0ms ease-in-out;
-// }
-
 .modal {
   background: white;
   border-radius: 8px;
   padding: $s-size $m-size;
 }
-
-// .modal--fixed-width {
-//   width: px;
-// }

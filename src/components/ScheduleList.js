@@ -60,7 +60,7 @@ const mapStateToProps = (state, props) => ({
       hotel.tripId === props.tripId && props.date.isBetween(hotel.checkInDate, hotel.checkOutDate, 'day', '[)')),
   hotelsOut: state.hotels
     .filter(hotel =>
-      hotel.tripId === props.tripId && props.date.isBetween(hotel.checkDate, hotel.checkOutDate, 'day', '(]'))
+      hotel.tripId === props.tripId && props.date.isBetween(hotel.checkInDate, hotel.checkOutDate, 'day', '(]'))
 })
 
 export default connect(mapStateToProps)(ScheduleList)

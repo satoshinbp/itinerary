@@ -61,7 +61,7 @@ const ScheduleDashboardPage = ({ trip, events, hotels, addEvent, editEvent, addH
         ))
       }
       <Modal
-        className="modal modal--fixed-width"
+        className="modal"
         isOpen={!!eventId || !!hotelId}
         contentLabel="Event/Hotel Form"
         onRequestClose={() => {
