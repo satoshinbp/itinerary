@@ -52,15 +52,15 @@ const ScheduleList = (props) => {
 const mapStateToProps = (state, props) => ({
   events: state.events
     .filter(event =>
-      event.tripId === props.tripId && event.date.isSame(props.date, 'day'))
+      event.tripId === props.tripId && moment(event.date).isSame(props.date, 'day'))
     .sort((a, b) =>
       moment(a.startTime).isAfter(moment(b.startTime)) ? 1 : -1),
   hotelsIn: state.hotels
     .filter(hotel =>
-      hotel.tripId === props.tripId && props.date.isBetween(hotel.checkInDate, hotel.checkOutDate, 'day', '[)')),
+      hotel.tripId === props.tripId && props.date.isBetween(moment(hotel.checkInDate), moment(hotel.checkOutDate), 'day', '[)')),
   hotelsOut: state.hotels
     .filter(hotel =>
-      hotel.tripId === props.tripId && props.date.isBetween(hotel.checkInDate, hotel.checkOutDate, 'day', '(]'))
+      hotel.tripId === props.tripId && props.date.isBetween(moment(hotel.checkInDate), moment(hotel.checkOutDate), 'day', '(]'))
 })
 
 export default connect(mapStateToProps)(ScheduleList)

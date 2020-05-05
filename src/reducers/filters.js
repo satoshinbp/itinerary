@@ -1,21 +1,13 @@
-const filtersReducerDefaultState = {
-  filter: 'upcoming'
-}
+const filtersReducerDefaultState = 'upcoming'
 
 export default (state = filtersReducerDefaultState, action) => {
   switch (action.type) {
     case 'SHOW_UPCOMING_TRIP':
-      return {
-        filter: 'upcoming'
-      }
+      return 'upcoming'
     case 'SHOW_PAST_TRIP':
-      return {
-        filter: 'past'
-      }
+      return 'past'
     case 'SHOW_ALL_TRIP':
-      return {
-        filter: 'all'
-      }
+      return 'all'
     default:
       return state
   }

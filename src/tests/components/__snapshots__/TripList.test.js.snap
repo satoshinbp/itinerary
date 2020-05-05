@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render TripList with empty message 1`] = `
+<div>
+  <div
+    className="trip-list-header"
+  >
+    <div
+      className="show-for-mobile"
+    >
+      Trips
+    </div>
+    <div
+      className="trip-list-item__actions show-for-desktop"
+    >
+      Actions
+    </div>
+    <div
+      className="trip-list-item__title show-for-desktop"
+    >
+      Title
+    </div>
+    <div
+      className="trip-list-item__dates show-for-desktop"
+    >
+      Dates
+    </div>
+  </div>
+  <div
+    className="trip-list-body"
+  >
+    <div
+      className="trip-list-item trip-list-item--message"
+    >
+      <span>
+        No trips
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render TripList with trips 1`] = `
+<div>
+  <div
+    className="trip-list-header"
+  >
+    <div
+      className="show-for-mobile"
+    >
+      Trips
+    </div>
+    <div
+      className="trip-list-item__actions show-for-desktop"
+    >
+      Actions
+    </div>
+    <div
+      className="trip-list-item__title show-for-desktop"
+    >
+      Title
+    </div>
+    <div
+      className="trip-list-item__dates show-for-desktop"
+    >
+      Dates
+    </div>
+  </div>
+  <div
+    className="trip-list-body"
+  >
+    <Connect(TripListItem)
+      endDate={259200000}
+      id="a"
+      key="a"
+      note=""
+      startDate={0}
+      title="Summer Vacation in Hawai"
+    />
+    <Connect(TripListItem)
+      endDate={604800000}
+      id="b"
+      key="b"
+      note="Locatin is changed from Canada to Morocco."
+      startDate={432000000}
+      title="Honeymoon in Morrocco"
+    />
+    <Connect(TripListItem)
+      endDate={-259200000}
+      id="c"
+      key="c"
+      note=""
+      startDate={-259200000}
+      title="Tokyo - 2020 Spring"
+    />
+  </div>
+</div>
+`;

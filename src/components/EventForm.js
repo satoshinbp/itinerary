@@ -10,9 +10,9 @@ export default (props) => {
   const id = props.event ? props.event.id : props.id
   const tripId = props.event ? props.event.tripId : props.tripId
   const [title, setTitle] = useState(props.event ? props.event.title : '')
-  const [date, setDate] = useState(props.event ? props.event.date : moment(props.date))
-  const [startTime, setStartTime] = useState(props.event ? props.event.startTime : moment(props.date).hour(12).minutes(0))
-  const [endTime, setEndTime] = useState(props.event ? props.event.endTime : moment(props.date).hour(12).minutes(0))
+  const [date, setDate] = useState(props.event ? moment(props.event.date) : moment(props.date))
+  const [startTime, setStartTime] = useState(props.event ? moment(props.event.startTime) : moment(props.date).hour(12).minutes(0))
+  const [endTime, setEndTime] = useState(props.event ? moment(props.event.endTime) : moment(props.date).hour(12).minutes(0))
   const [location, setLocation] = useState(props.event ? props.event.location : '')
   const [note, setNote] = useState(props.event ? props.event.note : '')
   const [focused, setFocused] = useState(null)
@@ -37,7 +37,16 @@ export default (props) => {
       setError('Please provide title.')
     } else {
       setError('')
-      props.onSubmit({ id, tripId, title, date, startTime, endTime, location, note })
+      props.onSubmit({
+        id,
+        tripId,
+        title,
+        date: date.valueOf(),
+        startTime: startTime.valueOf(),
+        endTime: endTime.valueOf(),
+        location,
+        note
+      })
     }
   }
 

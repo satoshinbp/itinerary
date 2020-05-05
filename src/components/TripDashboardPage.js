@@ -6,11 +6,11 @@ import TripList from './TripList'
 import TripForm from './TripForm'
 import { addTrip, editTrip } from '../actions/trips'
 
-const TripDashboardPage = (props) => {
+export const TripDashboardPage = props => {
   const [tripId, setTripId] = useState(undefined)
 
-  const onSubmit = (trip) => {
-    if (props.trips.find((trip) => trip.id === tripId)) {
+  const onSubmit = trip => {
+    if (props.trips.find(trip => trip.id === tripId)) {
       props.editTrip(tripId, trip)
     } else {
       props.addTrip(trip)
@@ -32,16 +32,18 @@ const TripDashboardPage = (props) => {
         <TripForm
           onSubmit={onSubmit}
           tripId={tripId}
-          trip={props.trips.find((trip) => trip.id === tripId)}
+          trip={props.trips.find(trip => trip.id === tripId)}
         />
       </Modal>
     </div>
-  );
+  )
 }
 
 Modal.setAppElement('body')
 
-const mapStateToProps = state => ({ trips: state.trips })
+const mapStateToProps = state => ({
+  trips: state.trips
+})
 
 const mapDispatchToProps = dispatch => ({
   addTrip: trip => dispatch(addTrip(trip)),

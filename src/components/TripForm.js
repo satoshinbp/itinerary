@@ -1,16 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { DateRangePicker } from 'react-dates'
-import 'react-dates/lib/css/_datepicker.css'
-import 'react-dates/initialize'
 import moment from 'moment'
 
 export default (props) => {
   const id = props.trip ? props.trip.id : props.tripId
-  const [title, setTitle] = useState(props.trip ? props.trip.title : '')
-  const [startDate, setStartDate] = useState(props.trip ? props.trip.startDate : moment().startOf('day'))
-  const [endDate, setEndDate] = useState(props.trip ? props.trip.endDate : undefined)
-  const [focusedInput, setFocusedInput] = useState(null)
-  const [error, setError] = useState('')
+  const [title, setTitle] = React.useState(props.trip ? props.trip.title : '')
+  const [startDate, setStartDate] = React.useState(props.trip ? moment(props.trip.startDate) : moment().startOf('day'))
+  const [endDate, setEndDate] = React.useState(props.trip ? moment(props.trip.endDate) : undefined)
+  const [note, setNote] = React.useState(props.trip ? props.trip.note : '')
+  const [focusedInput, setFocusedInput] = React.useState(null)
+  const [error, setError] = React.useState('')
   let numberOfMonths
 
   if (window.matchMedia("(min-width: 45rem)").matches) {
@@ -38,7 +37,13 @@ export default (props) => {
       setError('Please provide date.')
     } else {
       setError('')
-      props.onSubmit({ id, title, startDate, endDate })
+      props.onSubmit({
+        id,
+        title,
+        startDate: startDate.valueOf(),
+        endDate: endDate.valueOf(),
+        note
+      })
     }
   }
 
@@ -68,6 +73,13 @@ export default (props) => {
           displayFormat="YYYY/MM/DD"
         />
       </div>
+      <textarea
+        placeholder="Add a note for your trip (optional)"
+        className="textarea"
+        value={note}
+        onChange={e => setNote(e.target.value)}
+      >
+      </textarea>
       <button className="btn-push">Save Trip</button>
     </form>
   )

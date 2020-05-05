@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`initial filter all should render TripListButtons correctly 1`] = `
+<div
+  className="btn-bar"
+>
+  <select
+    className="select"
+    onChange={[Function]}
+    value="all"
+  >
+    <option
+      className="option"
+      value="upcoming"
+    >
+      Upcoming Trip
+    </option>
+    <option
+      className="option"
+      value="past"
+    >
+      Past Trip
+    </option>
+    <option
+      className="option"
+      value="all"
+    >
+      All Trip
+    </option>
+  </select>
+  <button
+    className="btn-push"
+    onClick={[Function]}
+  >
+    Add Trip
+  </button>
+</div>
+`;
+
+exports[`initial filter past should render TripListButtons correctly 1`] = `
+<div
+  className="btn-bar"
+>
+  <select
+    className="select"
+    onChange={[Function]}
+    value="past"
+  >
+    <option
+      className="option"
+      value="upcoming"
+    >
+      Upcoming Trip
+    </option>
+    <option
+      className="option"
+      value="past"
+    >
+      Past Trip
+    </option>
+    <option
+      className="option"
+      value="all"
+    >
+      All Trip
+    </option>
+  </select>
+  <button
+    className="btn-push"
+    onClick={[Function]}
+  >
+    Add Trip
+  </button>
+</div>
+`;
+
+exports[`initial filter upcoming should render TripListButtons correctly 1`] = `
+<div
+  className="btn-bar"
+>
+  <select
+    className="select"
+    onChange={[Function]}
+    value="upcoming"
+  >
+    <option
+      className="option"
+      value="upcoming"
+    >
+      Upcoming Trip
+    </option>
+    <option
+      className="option"
+      value="past"
+    >
+      Past Trip
+    </option>
+    <option
+      className="option"
+      value="all"
+    >
+      All Trip
+    </option>
+  </select>
+  <button
+    className="btn-push"
+    onClick={[Function]}
+  >
+    Add Trip
+  </button>
+</div>
+`;

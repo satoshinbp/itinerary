@@ -4,8 +4,9 @@ export const addTrip = (
   {
     id = '',
     title = '',
-    startDate = moment(),
-    endDate = moment()
+    startDate = 0,
+    endDate = 0,
+    note = ''
   } = {}
 ) => ({
   type: 'ADD_TRIP',
@@ -13,7 +14,8 @@ export const addTrip = (
     id,
     title,
     startDate,
-    endDate
+    endDate,
+    note
   }
 })
 
@@ -23,7 +25,7 @@ export const editTrip = (id, updates) => ({
   updates
 })
 
-export const removeTrip = ({ id } = {}) => ({
+export const removeTrip = (id = '') => ({
   type: 'REMOVE_TRIP',
   id
 })

@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import moment from 'moment'
 import { removeHotel } from '../actions/hotels'
 
 const HotelItem = ({ dispatch, date, inOrOut, id, name, checkInDate, checkOutDate, checkInTime, checkOutTime, location, setHotelId }) => {
@@ -8,7 +9,7 @@ const HotelItem = ({ dispatch, date, inOrOut, id, name, checkInDate, checkOutDat
     const result = confirm('Are you sure you want to delete this hotel?');
 
     if (result) {
-      dispatch(removeHotel({ id }))
+      dispatch(removeHotel(id))
     }
   }
 
@@ -20,8 +21,8 @@ const HotelItem = ({ dispatch, date, inOrOut, id, name, checkInDate, checkOutDat
       <div className="schedule-list-item__time" onClick={() => setHotelId(id)}>
         {inOrOut === "in" && <FontAwesomeIcon className="icon show-for-desktop" icon="moon" />}
         {inOrOut === "out" && <FontAwesomeIcon className="icon show-for-desktop" icon="sun" />}
-        {date.isSame(checkInDate, 'day') && `Check In: ${checkInTime.format('HH:mm')}~`}
-        {date.isSame(checkOutDate, 'day') && `Check Out: ~${checkOutTime.format('HH:mm')}`}
+        {date.isSame(moment(checkInDate), 'day') && `Check In: ${moment(checkInTime).format('HH:mm')}~`}
+        {date.isSame(moment(checkOutDate), 'day') && `Check Out: ~${moment(checkOutTime).format('HH:mm')}`}
       </div>
       <div className="schedule-list-item__title" onClick={() => setHotelId(id)}>
         <FontAwesomeIcon className="icon show-for-desktop" icon="hotel" />

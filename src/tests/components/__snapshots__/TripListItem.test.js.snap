@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render TripListItem for multi days trip 1`] = `
+<div
+  className="trip-list-item"
+>
+  <div
+    className="trip-list-item__actions"
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon"
+      fixedWidth={false}
+      flip={null}
+      icon="edit"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      onClick={[Function]}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+    <FontAwesomeIcon
+      border={false}
+      className="icon"
+      fixedWidth={false}
+      flip={null}
+      icon="trash-alt"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      onClick={[Function]}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+  </div>
+  <Link
+    className="trip-list-item__title"
+    to="/schedule/a"
+  >
+    Summer Vacation in Hawai
+  </Link>
+  <Link
+    className="trip-list-item__dates"
+    to="/schedule/a"
+  >
+    <span>
+      1970/01/01 - 1970/01/04
+    </span>
+  </Link>
+</div>
+`;
+
+exports[`should render TripListItem for one day trip 1`] = `
+<div
+  className="trip-list-item"
+>
+  <div
+    className="trip-list-item__actions"
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon"
+      fixedWidth={false}
+      flip={null}
+      icon="edit"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      onClick={[Function]}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+    <FontAwesomeIcon
+      border={false}
+      className="icon"
+      fixedWidth={false}
+      flip={null}
+      icon="trash-alt"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      onClick={[Function]}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+  </div>
+  <Link
+    className="trip-list-item__title"
+    to="/schedule/c"
+  >
+    Tokyo - 2020 Spring
+  </Link>
+  <Link
+    className="trip-list-item__dates"
+    to="/schedule/c"
+  >
+    <span>
+      1969/12/29
+    </span>
+  </Link>
+</div>
+`;

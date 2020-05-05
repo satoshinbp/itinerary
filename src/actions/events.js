@@ -5,9 +5,9 @@ export const addEvent = (
     id='',
     tripId = '',
     title = '',
-    date = moment().startOf('day'),
-    startTime = moment().startOf('day'),
-    endTime = moment().startOf('day'),
+    date = 0,
+    startTime = 0,
+    endTime = 0,
     location = '',
     note = ''
   } = {}
@@ -31,7 +31,7 @@ export const editEvent = (id, updates) => ({
   updates
 })
 
-export const removeEvent = ({ id } = {}) => ({
+export const removeEvent = (id = '') => ({
   type: 'REMOVE_EVENT',
   id
 })

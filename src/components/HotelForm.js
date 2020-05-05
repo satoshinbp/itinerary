@@ -10,10 +10,10 @@ export default (props) => {
   const id = props.hotel ? props.hotel.id : props.id
   const tripId = props.hotel ? props.hotel.tripId : props.tripId
   const [name, setName] = useState(props.hotel ? props.hotel.name : '')
-  const [checkInDate, setCheckInDate] = useState(props.hotel ? props.hotel.checkInDate : moment(props.date))
-  const [checkOutDate, setCheckOutDate] = useState(props.hotel ? props.hotel.checkOutDate : moment(props.date).add(1, 'day'))
-  const [checkInTime, setCheckInTime] = useState(props.hotel ? props.hotel.checkInTime : moment("1500", "hmm"))
-  const [checkOutTime, setCheckOutTime] = useState(props.hotel ? props.hotel.checkOutTime : moment("1100", "hmm"))
+  const [checkInDate, setCheckInDate] = useState(props.hotel ? moment(props.hotel.checkInDate) : moment(props.date))
+  const [checkOutDate, setCheckOutDate] = useState(props.hotel ? moment(props.hotel.checkOutDate) : moment(props.date).add(1, 'day'))
+  const [checkInTime, setCheckInTime] = useState(props.hotel ? moment(props.hotel.checkInTime) : moment("1500", "hmm"))
+  const [checkOutTime, setCheckOutTime] = useState(props.hotel ? moment(props.hotel.checkOutTime) : moment("1100", "hmm"))
   const [ETA, setETA] = useState(props.hotel ? props.hotel.ETA : moment("1500", "hmm"))
   const [ETD, setETD] = useState(props.hotel ? props.hotel.ETD : moment("1100", "hmm"))
   const [location, setLocation] = useState(props.hotel ? props.hotel.location : '')
@@ -30,10 +30,10 @@ export default (props) => {
   
   const onDatesChange = ({ startDate, endDate }) => {
     if (startDate) {
-      setCheckInDate(moment(startDate))
+      setCheckInDate(moment(startDate).startOf('day'))
     }
     if (endDate) {
-      setCheckOutDate(moment(endDate))
+      setCheckOutDate(moment(endDate).startOf('day'))
     }
   }
   const onSubmit = e => {
@@ -43,7 +43,18 @@ export default (props) => {
       setError('Please provide hotel name.')
     } else {
       setError('')
-      props.onSubmit({ id, tripId, name, checkInDate, checkOutDate, checkInTime, checkOutTime, ETA, ETD, location, note })
+      props.onSubmit({ id,
+        tripId,
+        name,
+        checkInDate: checkInDate.valueOf(),
+        checkOutDate: checkOutDate.valueOf(),
+        checkInTime: checkInTime.valueOf(),
+        checkOutTime: checkOutTime.valueOf(),
+        ETA: ETA.valueOf(),
+        ETD: ETD.valueOf(),
+        location,
+        note
+      })
     }
   }
   

@@ -16,7 +16,7 @@ const ScheduleDashboardPage = ({ trip, events, hotels, addEvent, editEvent, addH
   const listAllDate = (dates, params_start, params_end) => {
     let start = moment(params_start)
 
-    while (start.diff(params_end, 'day') <= 0) {
+    while (start.diff(moment(params_end), 'day') <= 0) {
       if (!dates.find(date => date.isSame(start, 'day'))) {
         dates.push(moment(start))
       }
@@ -27,12 +27,14 @@ const ScheduleDashboardPage = ({ trip, events, hotels, addEvent, editEvent, addH
   let dates = []
   listAllDate(dates, trip.startDate, trip.endDate)
   events.map(event => {
-    if (!dates.find(date => date.isSame(event.date, 'day'))) {
+    if (!dates.find(date => date.isSame(moment(event.date), 'day'))) {
       dates.push(moment(event.date))
     }
   })
-  hotels.map(hotel => listAllDate(dates, hotel.checkInDate, hotel.checkOutDate))
-  dates.sort((a, b) => a.isAfter(b) ? 1 : -1)
+  hotels.map(hotel => {
+    listAllDate(dates, hotel.checkInDate, hotel.checkOutDate)
+  })
+  dates.sort((a, b) => a.isAfter(b, 'day') ? 1 : -1)
 
   return (
     <div className="container">
@@ -40,10 +42,10 @@ const ScheduleDashboardPage = ({ trip, events, hotels, addEvent, editEvent, addH
         <h3>{trip.title}</h3>
         <p>
           {
-            trip.startDate.isSame(trip.endDate, 'day') ? (
-              `${trip.startDate.format('YYYY/MM/DD')}`
+            moment(trip.startDate).isSame(trip.endDate, 'day') ? (
+              `${moment(trip.startDate).format('YYYY/MM/DD')}`
             ) : (
-                `${trip.startDate.format('YYYY/MM/DD')} - ${trip.endDate.format('YYYY/MM/DD')}`
+                `${moment(trip.startDate).format('YYYY/MM/DD')} - ${moment(trip.endDate).format('YYYY/MM/DD')}`
               )
           }
         </p>

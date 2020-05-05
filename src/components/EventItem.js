@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import moment from 'moment'
 import { removeEvent } from '../actions/events'
 
 const EventItem = ({ dispatch, id, title, startTime, endTime, location, setEventId }) => {
@@ -8,7 +9,7 @@ const EventItem = ({ dispatch, id, title, startTime, endTime, location, setEvent
     const result = confirm('Are you sure you want to delete this event?');
 
     if (result) {
-      dispatch(removeEvent({ id }))
+      dispatch(removeEvent(id))
     }
   }
 
@@ -19,7 +20,7 @@ const EventItem = ({ dispatch, id, title, startTime, endTime, location, setEvent
       </div>
       <div className="schedule-list-item__time" onClick={() => setEventId(id)}>
         <FontAwesomeIcon className="icon show-for-desktop" icon="clock" />
-        {startTime.format('HH:mm')} ~ {endTime.format('HH:mm')}
+        {moment(startTime).format('HH:mm')} ~ {moment(endTime).format('HH:mm')}
       </div>
       <div className="schedule-list-item__title" onClick={() => setEventId(id)}>
         {title}

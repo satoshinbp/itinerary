@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render TripDashboardPage correctly 1`] = `
+<div
+  className="container"
+>
+  <Connect(TripListButtons)
+    setTripId={[Function]}
+  />
+  <Connect(TripList)
+    setTripId={[Function]}
+  />
+  <Modal
+    ariaHideApp={true}
+    bodyOpenClassName="ReactModal__Body--open"
+    className="modal"
+    closeTimeoutMS={200}
+    contentLabel="Add/Edit Trip"
+    isOpen={false}
+    onRequestClose={[Function]}
+    parentSelector={[Function]}
+    portalClassName="ReactModalPortal"
+    role="dialog"
+    shouldCloseOnEsc={true}
+    shouldCloseOnOverlayClick={true}
+    shouldFocusAfterRender={true}
+    shouldReturnFocusAfterClose={true}
+  >
+    <_default
+      onSubmit={[Function]}
+    />
+  </Modal>
+</div>
+`;

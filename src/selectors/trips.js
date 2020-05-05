@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-export default (trips, { filter }) => {
+export default (trips, filter) => {
   return trips.filter((trip) => {
     switch (filter) {
       case 'upcoming':

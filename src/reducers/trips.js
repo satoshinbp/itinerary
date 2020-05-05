@@ -10,16 +10,16 @@ export default (state = tripsReducerDefaultState, action) => {
     case 'EDIT_TRIP':
       return state.map((trip) => {
         if (trip.id === action.id) {
-           return {
+          return {
             ...trip,
             ...action.updates
-           }
+          }
         } else {
           return trip
         }
       })
-      case 'REMOVE_TRIP':
-        return state.filter(({ id }) => id !== action.id)
+    case 'REMOVE_TRIP':
+      return state.filter(({ id }) => id !== action.id)
     default:
       return state
   }
