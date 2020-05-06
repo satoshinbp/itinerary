@@ -5,10 +5,10 @@ exports[`should render TripDashboardPage correctly 1`] = `
   className="container"
 >
   <Connect(TripListButtons)
-    setTripId={[Function]}
+    setTripId={[MockFunction]}
   />
   <Connect(TripList)
-    setTripId={[Function]}
+    setTripId={[MockFunction]}
   />
   <Modal
     ariaHideApp={true}

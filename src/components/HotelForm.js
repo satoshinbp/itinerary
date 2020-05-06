@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { DateRangePicker } from 'react-dates'
-import 'react-dates/lib/css/_datepicker.css'
-import 'react-dates/initialize'
 import DateFnsUtils from '@date-io/date-fns'
 import { TimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import moment from 'moment'
@@ -9,17 +7,17 @@ import moment from 'moment'
 export default (props) => {
   const id = props.hotel ? props.hotel.id : props.id
   const tripId = props.hotel ? props.hotel.tripId : props.tripId
-  const [name, setName] = useState(props.hotel ? props.hotel.name : '')
-  const [checkInDate, setCheckInDate] = useState(props.hotel ? moment(props.hotel.checkInDate) : moment(props.date))
-  const [checkOutDate, setCheckOutDate] = useState(props.hotel ? moment(props.hotel.checkOutDate) : moment(props.date).add(1, 'day'))
-  const [checkInTime, setCheckInTime] = useState(props.hotel ? moment(props.hotel.checkInTime) : moment("1500", "hmm"))
-  const [checkOutTime, setCheckOutTime] = useState(props.hotel ? moment(props.hotel.checkOutTime) : moment("1100", "hmm"))
-  const [ETA, setETA] = useState(props.hotel ? props.hotel.ETA : moment("1500", "hmm"))
-  const [ETD, setETD] = useState(props.hotel ? props.hotel.ETD : moment("1100", "hmm"))
-  const [location, setLocation] = useState(props.hotel ? props.hotel.location : '')
-  const [note, setNote] = useState(props.hotel ? props.hotel.note : '')
-  const [focusedInput, setFocusedInput] = useState(null)
-  const [error, setError] = useState('')
+  const [name, setName] = React.useState(props.hotel ? props.hotel.name : '')
+  const [checkInDate, setCheckInDate] = React.useState(props.hotel ? moment(props.hotel.checkInDate) : moment(props.date))
+  const [checkOutDate, setCheckOutDate] = React.useState(props.hotel ? moment(props.hotel.checkOutDate) : moment(props.date).add(1, 'day'))
+  const [checkInTime, setCheckInTime] = React.useState(props.hotel ? moment(props.hotel.checkInTime) : moment("1500", 'HH:mm'))
+  const [checkOutTime, setCheckOutTime] = React.useState(props.hotel ? moment(props.hotel.checkOutTime) : moment("1100", 'HH:mm'))
+  const [ETA, setETA] = React.useState(props.hotel ? props.hotel.ETA : moment("1500", 'HH:mm'))
+  const [ETD, setETD] = React.useState(props.hotel ? props.hotel.ETD : moment("1100", 'HH:mm'))
+  const [location, setLocation] = React.useState(props.hotel ? props.hotel.location : '')
+  const [note, setNote] = React.useState(props.hotel ? props.hotel.note : '')
+  const [focusedInput, setFocusedInput] = React.useState(null)
+  const [error, setError] = React.useState('')
 
   let numberOfMonths
   if (window.matchMedia("(min-width: 45rem)").matches) {
@@ -43,7 +41,8 @@ export default (props) => {
       setError('Please provide hotel name.')
     } else {
       setError('')
-      props.onSubmit({ id,
+      props.onSubmit({
+        id,
         tripId,
         name,
         checkInDate: checkInDate.valueOf(),

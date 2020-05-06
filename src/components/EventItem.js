@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import moment from 'moment'
 import { removeEvent } from '../actions/events'
 
-const EventItem = ({ dispatch, id, title, startTime, endTime, location, setEventId }) => {
+export const EventItem = ({ dispatch, id, title, startTime, endTime, location, setEventId }) => {
   const confirmRemoveEvent = () => {
     const result = confirm('Are you sure you want to delete this event?');
 

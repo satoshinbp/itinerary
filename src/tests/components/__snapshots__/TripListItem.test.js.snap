@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render TripListItem for multi days trip 1`] = `
+exports[`should render TripListItem correctly for multi days trip 1`] = `
 <div
   className="trip-list-item"
 >
@@ -59,13 +59,13 @@ exports[`should render TripListItem for multi days trip 1`] = `
     to="/schedule/a"
   >
     <span>
-      1970/01/01 - 1970/01/04
+      1970/01/01 - 1970/01/03
     </span>
   </Link>
 </div>
 `;
 
-exports[`should render TripListItem for one day trip 1`] = `
+exports[`should render TripListItem correctly for one day trip 1`] = `
 <div
   className="trip-list-item"
 >
@@ -124,7 +124,7 @@ exports[`should render TripListItem for one day trip 1`] = `
     to="/schedule/c"
   >
     <span>
-      1969/12/29
+      1970/01/11
     </span>
   </Link>
 </div>

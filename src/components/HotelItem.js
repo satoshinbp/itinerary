@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import moment from 'moment'
 import { removeHotel } from '../actions/hotels'
 
-const HotelItem = ({ dispatch, date, inOrOut, id, name, checkInDate, checkOutDate, checkInTime, checkOutTime, location, setHotelId }) => {
+export const HotelItem = ({ dispatch, date, inOrOut, id, name, checkInDate, checkOutDate, checkInTime, checkOutTime, location, setHotelId }) => {
   const confirmRemoveHotel = () => {
     const result = confirm('Are you sure you want to delete this hotel?');
 

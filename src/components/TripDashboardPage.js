@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux'
 import TripListButtons from './TripListButtons'
@@ -7,7 +7,7 @@ import TripForm from './TripForm'
 import { addTrip, editTrip } from '../actions/trips'
 
 export const TripDashboardPage = props => {
-  const [tripId, setTripId] = useState(undefined)
+  const [tripId, setTripId] = React.useState(undefined)
 
   const onSubmit = trip => {
     if (props.trips.find(trip => trip.id === tripId)) {
@@ -48,6 +48,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addTrip: trip => dispatch(addTrip(trip)),
   editTrip: (id, updates) => dispatch(editTrip(id, updates))
-});
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(TripDashboardPage)

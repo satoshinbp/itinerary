@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`for 2nd day of trips[0] should render ScheduleList correctly 1`] = `
+<Fragment>
+  <div
+    className="schedule-list-header"
+  >
+    <div>
+      1970/01/02
+    </div>
+    <div>
+      <button
+        className="btn-push btn-push--small"
+        onClick={[Function]}
+      >
+        Add Event
+      </button>
+      <button
+        className="btn-push btn-push--small"
+        onClick={[Function]}
+      >
+        Add Hotel
+      </button>
+    </div>
+  </div>
+  <div
+    className="schedule-list-body"
+  >
+    <Connect(HotelItem)
+      ETA={18000000}
+      ETD={3600000}
+      checkInDate={0}
+      checkInTime={18000000}
+      checkOutDate={86400000}
+      checkOutTime={3600000}
+      date={"1970-01-02T00:00:00.000Z"}
+      id="3"
+      inOrOut="out"
+      key="3"
+      location=""
+      name="Hawai Travellars Inn"
+      note="Early Check-in"
+      setHotelId={[MockFunction]}
+      tripId="a"
+    />
+    <Connect(EventItem)
+      date={86400000}
+      endTime={25200000}
+      id="1"
+      key="1"
+      location="Waikiki"
+      note=""
+      setEventId={[MockFunction]}
+      startTime={14400000}
+      title="Shopping"
+      tripId="a"
+    />
+    <Connect(HotelItem)
+      ETA={32400000}
+      ETD={0}
+      checkInDate={86400000}
+      checkInTime={21600000}
+      checkOutDate={172800000}
+      checkOutTime={7200000}
+      date={"1970-01-02T00:00:00.000Z"}
+      id="1"
+      inOrOut="in"
+      key="1"
+      location="Waikiki"
+      name="Waikiki Resort Hotel"
+      note=""
+      setHotelId={[MockFunction]}
+      tripId="a"
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`for 2nd day of trips[0] without events, hotels 1`] = `
+<Fragment>
+  <div
+    className="schedule-list-header"
+  >
+    <div>
+      1970/01/02
+    </div>
+    <div>
+      <button
+        className="btn-push btn-push--small"
+        onClick={[Function]}
+      >
+        Add Event
+      </button>
+      <button
+        className="btn-push btn-push--small"
+        onClick={[Function]}
+      >
+        Add Hotel
+      </button>
+    </div>
+  </div>
+  <div
+    className="schedule-list-body"
+  />
+</Fragment>
+`;

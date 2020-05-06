@@ -70,7 +70,7 @@ exports[`should render TripList with trips 1`] = `
     className="trip-list-body"
   >
     <Connect(TripListItem)
-      endDate={259200000}
+      endDate={172800000}
       id="a"
       key="a"
       note=""
@@ -78,19 +78,19 @@ exports[`should render TripList with trips 1`] = `
       title="Summer Vacation in Hawai"
     />
     <Connect(TripListItem)
-      endDate={604800000}
+      endDate={-86400000}
       id="b"
       key="b"
       note="Locatin is changed from Canada to Morocco."
-      startDate={432000000}
+      startDate={-864000000}
       title="Honeymoon in Morrocco"
     />
     <Connect(TripListItem)
-      endDate={-259200000}
+      endDate={864000000}
       id="c"
       key="c"
       note=""
-      startDate={-259200000}
+      startDate={864000000}
       title="Tokyo - 2020 Spring"
     />
   </div>

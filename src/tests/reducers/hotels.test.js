@@ -58,7 +58,7 @@ test('should remove hotel', () => {
     id: hotels[1].id
   }
   const state = hotelsReducer(hotels, action);
-  expect(state).toEqual([hotels[0], hotels[2]]);
+  expect(state).toEqual([hotels[0], hotels[2], hotels[3]]);
 })
 
 test('should not remove hotel if id is not found', () => {

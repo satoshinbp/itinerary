@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { SingleDatePicker } from 'react-dates'
-import 'react-dates/lib/css/_datepicker.css'
-import 'react-dates/initialize'
 import DateFnsUtils from '@date-io/date-fns'
 import { TimePicker, MuiPickersUtilsProvider} from '@material-ui/pickers'
 import moment from 'moment'
@@ -9,15 +7,22 @@ import moment from 'moment'
 export default (props) => {
   const id = props.event ? props.event.id : props.id
   const tripId = props.event ? props.event.tripId : props.tripId
-  const [title, setTitle] = useState(props.event ? props.event.title : '')
-  const [date, setDate] = useState(props.event ? moment(props.event.date) : moment(props.date))
-  const [startTime, setStartTime] = useState(props.event ? moment(props.event.startTime) : moment(props.date).hour(12).minutes(0))
-  const [endTime, setEndTime] = useState(props.event ? moment(props.event.endTime) : moment(props.date).hour(12).minutes(0))
-  const [location, setLocation] = useState(props.event ? props.event.location : '')
-  const [note, setNote] = useState(props.event ? props.event.note : '')
-  const [focused, setFocused] = useState(null)
-  const [error, setError] = useState('')
+  const [title, setTitle] = React.useState(props.event ? props.event.title : '')
+  const [date, setDate] = React.useState(props.event ? moment(props.event.date) : moment(props.date))
+  const [startTime, setStartTime] = React.useState(props.event ? moment(props.event.startTime) : moment(props.date).hour(12).minutes(0))
+  const [endTime, setEndTime] = React.useState(props.event ? moment(props.event.endTime) : moment(props.date).hour(12).minutes(0))
+  const [location, setLocation] = React.useState(props.event ? props.event.location : '')
+  const [note, setNote] = React.useState(props.event ? props.event.note : '')
+  const [focused, setFocused] = React.useState(null)
+  const [error, setError] = React.useState('')
 
+  let numberOfMonths
+  if (window.matchMedia("(min-width: 45rem)").matches) {
+    numberOfMonths = 2
+  } else {
+    numberOfMonths = 1
+  }
+  
   const onStartTimeChange = time => {
     setStartTime(moment(time))
     if (moment(time).isAfter(endTime)) {
@@ -63,6 +68,7 @@ export default (props) => {
       />
       <div className="date-time-picker">
         <SingleDatePicker
+          numberOfMonths={numberOfMonths}
           date={date}
           onDateChange={date => setDate(moment(date).startOf('day'))}
           focused={focused}

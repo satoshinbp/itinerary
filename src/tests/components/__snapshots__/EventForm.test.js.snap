@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render TripForm correctly 1`] = `
+exports[`should render EventForm correctly 1`] = `
 <form
   className="form"
   onSubmit={[Function]}
@@ -16,27 +16,26 @@ exports[`should render TripForm correctly 1`] = `
   <div
     className="date-time-picker"
   >
-    <withStyles(DateRangePicker)
+    <withStyles(SingleDatePicker)
       anchorDirection="left"
       appendToBody={false}
       block={false}
       calendarInfoPosition="bottom"
-      customArrowIcon={null}
       customCloseIcon={null}
       customInputIcon={null}
+      date={"1970-01-01T00:00:00.000Z"}
       dayPickerNavigationInlineStyles={null}
       daySize={39}
       disableScroll={false}
       disabled={false}
       displayFormat="YYYY/MM/DD"
       enableOutsideDays={false}
-      endDate={null}
-      endDateId="end_date_id_mobile"
-      endDatePlaceholderText="End Date"
       firstDayOfWeek={null}
-      focusedInput={null}
+      focused={null}
       hideKeyboardShortcutsPanel={false}
       horizontalMargin={0}
+      horizontalMonthPadding={13}
+      id="date"
       initialVisibleMonth={null}
       inputIconPosition="before"
       isDayBlocked={[Function]}
@@ -45,7 +44,6 @@ exports[`should render TripForm correctly 1`] = `
       isRTL={false}
       keepFocusOnInput={false}
       keepOpenOnDateSelect={false}
-      minimumNights={0}
       monthFormat="MMMM YYYY"
       navNext={null}
       navPosition="navPositionTop"
@@ -53,7 +51,7 @@ exports[`should render TripForm correctly 1`] = `
       noBorder={false}
       numberOfMonths={1}
       onClose={[Function]}
-      onDatesChange={[Function]}
+      onDateChange={[Function]}
       onFocusChange={[Function]}
       onNextMonthClick={[Function]}
       onPrevMonthClick={[Function]}
@@ -62,17 +60,13 @@ exports[`should render TripForm correctly 1`] = `
       phrases={
         Object {
           "calendarLabel": "Calendar",
-          "chooseAvailableEndDate": [Function],
-          "chooseAvailableStartDate": [Function],
-          "clearDates": "Clear Dates",
+          "chooseAvailableDate": [Function],
+          "clearDate": "Clear Date",
           "closeDatePicker": "Close",
           "dateIsSelected": [Function],
-          "dateIsSelectedAsEndDate": [Function],
-          "dateIsSelectedAsStartDate": [Function],
           "dateIsUnavailable": [Function],
           "enterKey": "Enter key",
           "escape": "Escape key",
-          "focusStartDate": "Interact with the calendar and add the check-in date for your trip.",
           "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
           "homeEnd": "Home and end keys",
           "jumpToNextMonth": "Move forward to switch to the next month.",
@@ -95,6 +89,7 @@ exports[`should render TripForm correctly 1`] = `
           "upArrowDownArrow": "up and down arrow keys",
         }
       }
+      placeholder="Date"
       readOnly={false}
       regular={false}
       renderCalendarInfo={null}
@@ -104,15 +99,12 @@ exports[`should render TripForm correctly 1`] = `
       renderNavNextButton={null}
       renderNavPrevButton={null}
       renderWeekHeaderElement={null}
-      reopenPickerOnClearDates={false}
+      reopenPickerOnClearDate={false}
       required={false}
       screenReaderInputMessage=""
-      showClearDates={false}
+      showClearDate={false}
       showDefaultInputIcon={false}
       small={false}
-      startDate={"1969-12-31T15:00:00.000Z"}
-      startDateId="start_date_id_mobile"
-      startDatePlaceholderText="Start Date"
       verticalHeight={null}
       verticalSpacing={22}
       weekDayFormat="dd"
@@ -120,21 +112,68 @@ exports[`should render TripForm correctly 1`] = `
       withPortal={false}
     />
   </div>
+  <div
+    className="date-time-picker"
+  >
+    <MuiPickersUtilsProvider
+      utils={[Function]}
+    >
+      <PickerWithState
+        ampm={true}
+        invalidDateMessage="Invalid Time Format"
+        label="Start Time"
+        onChange={[Function]}
+        openTo="hours"
+        value={"1970-01-01T03:00:00.000Z"}
+        views={
+          Array [
+            "hours",
+            "minutes",
+          ]
+        }
+      />
+    </MuiPickersUtilsProvider>
+    <MuiPickersUtilsProvider
+      utils={[Function]}
+    >
+      <PickerWithState
+        ampm={true}
+        invalidDateMessage="Invalid Time Format"
+        label="End Time"
+        onChange={[Function]}
+        openTo="hours"
+        value={"1970-01-01T03:00:00.000Z"}
+        views={
+          Array [
+            "hours",
+            "minutes",
+          ]
+        }
+      />
+    </MuiPickersUtilsProvider>
+  </div>
+  <input
+    className="text-input"
+    onChange={[Function]}
+    placeholder="location"
+    type="text"
+    value=""
+  />
   <textarea
     className="textarea"
     onChange={[Function]}
-    placeholder="Add a note for your trip (optional)"
+    placeholder="Add a note for your event (optional)"
     value=""
   />
   <button
     className="btn-push"
   >
-    Save Trip
+    Save Event
   </button>
 </form>
 `;
 
-exports[`should render TripForm correctly with trip data 1`] = `
+exports[`should render EventForm correctly with trip data 1`] = `
 <form
   className="form"
   onSubmit={[Function]}
@@ -145,32 +184,31 @@ exports[`should render TripForm correctly with trip data 1`] = `
     onChange={[Function]}
     placeholder="title"
     type="text"
-    value="Honeymoon in Morrocco"
+    value="Shopping"
   />
   <div
     className="date-time-picker"
   >
-    <withStyles(DateRangePicker)
+    <withStyles(SingleDatePicker)
       anchorDirection="left"
       appendToBody={false}
       block={false}
       calendarInfoPosition="bottom"
-      customArrowIcon={null}
       customCloseIcon={null}
       customInputIcon={null}
+      date={"1970-01-02T00:00:00.000Z"}
       dayPickerNavigationInlineStyles={null}
       daySize={39}
       disableScroll={false}
       disabled={false}
       displayFormat="YYYY/MM/DD"
       enableOutsideDays={false}
-      endDate={"1969-12-31T00:00:00.000Z"}
-      endDateId="end_date_id_mobile"
-      endDatePlaceholderText="End Date"
       firstDayOfWeek={null}
-      focusedInput={null}
+      focused={null}
       hideKeyboardShortcutsPanel={false}
       horizontalMargin={0}
+      horizontalMonthPadding={13}
+      id="date"
       initialVisibleMonth={null}
       inputIconPosition="before"
       isDayBlocked={[Function]}
@@ -179,7 +217,6 @@ exports[`should render TripForm correctly with trip data 1`] = `
       isRTL={false}
       keepFocusOnInput={false}
       keepOpenOnDateSelect={false}
-      minimumNights={0}
       monthFormat="MMMM YYYY"
       navNext={null}
       navPosition="navPositionTop"
@@ -187,7 +224,7 @@ exports[`should render TripForm correctly with trip data 1`] = `
       noBorder={false}
       numberOfMonths={1}
       onClose={[Function]}
-      onDatesChange={[Function]}
+      onDateChange={[Function]}
       onFocusChange={[Function]}
       onNextMonthClick={[Function]}
       onPrevMonthClick={[Function]}
@@ -196,17 +233,13 @@ exports[`should render TripForm correctly with trip data 1`] = `
       phrases={
         Object {
           "calendarLabel": "Calendar",
-          "chooseAvailableEndDate": [Function],
-          "chooseAvailableStartDate": [Function],
-          "clearDates": "Clear Dates",
+          "chooseAvailableDate": [Function],
+          "clearDate": "Clear Date",
           "closeDatePicker": "Close",
           "dateIsSelected": [Function],
-          "dateIsSelectedAsEndDate": [Function],
-          "dateIsSelectedAsStartDate": [Function],
           "dateIsUnavailable": [Function],
           "enterKey": "Enter key",
           "escape": "Escape key",
-          "focusStartDate": "Interact with the calendar and add the check-in date for your trip.",
           "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
           "homeEnd": "Home and end keys",
           "jumpToNextMonth": "Move forward to switch to the next month.",
@@ -229,6 +262,7 @@ exports[`should render TripForm correctly with trip data 1`] = `
           "upArrowDownArrow": "up and down arrow keys",
         }
       }
+      placeholder="Date"
       readOnly={false}
       regular={false}
       renderCalendarInfo={null}
@@ -238,15 +272,12 @@ exports[`should render TripForm correctly with trip data 1`] = `
       renderNavNextButton={null}
       renderNavPrevButton={null}
       renderWeekHeaderElement={null}
-      reopenPickerOnClearDates={false}
+      reopenPickerOnClearDate={false}
       required={false}
       screenReaderInputMessage=""
-      showClearDates={false}
+      showClearDate={false}
       showDefaultInputIcon={false}
       small={false}
-      startDate={"1969-12-22T00:00:00.000Z"}
-      startDateId="start_date_id_mobile"
-      startDatePlaceholderText="Start Date"
       verticalHeight={null}
       verticalSpacing={22}
       weekDayFormat="dd"
@@ -254,16 +285,63 @@ exports[`should render TripForm correctly with trip data 1`] = `
       withPortal={false}
     />
   </div>
+  <div
+    className="date-time-picker"
+  >
+    <MuiPickersUtilsProvider
+      utils={[Function]}
+    >
+      <PickerWithState
+        ampm={true}
+        invalidDateMessage="Invalid Time Format"
+        label="Start Time"
+        onChange={[Function]}
+        openTo="hours"
+        value={"1970-01-01T04:00:00.000Z"}
+        views={
+          Array [
+            "hours",
+            "minutes",
+          ]
+        }
+      />
+    </MuiPickersUtilsProvider>
+    <MuiPickersUtilsProvider
+      utils={[Function]}
+    >
+      <PickerWithState
+        ampm={true}
+        invalidDateMessage="Invalid Time Format"
+        label="End Time"
+        onChange={[Function]}
+        openTo="hours"
+        value={"1970-01-01T07:00:00.000Z"}
+        views={
+          Array [
+            "hours",
+            "minutes",
+          ]
+        }
+      />
+    </MuiPickersUtilsProvider>
+  </div>
+  <input
+    className="text-input"
+    onChange={[Function]}
+    placeholder="location"
+    type="text"
+    value="Waikiki"
+  />
   <textarea
     className="textarea"
     onChange={[Function]}
-    placeholder="Add a note for your trip (optional)"
-    value="Locatin is changed from Canada to Morocco."
+    placeholder="Add a note for your event (optional)"
+    value=""
   />
   <button
     className="btn-push"
   >
-    Save Trip
+    Save Event
   </button>
 </form>
 `;

@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render ScheduleDashboardPage correctly for multi days trip 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="page-header__title"
+  >
+    <h3>
+      Summer Vacation in Hawai
+    </h3>
+    <p>
+      1970/01/01 - 1970/01/03
+    </p>
+  </div>
+  <Connect(ScheduleList)
+    date={"1970-01-01T00:00:00.000Z"}
+    key="0"
+    setEventDate={[Function]}
+    setEventId={[Function]}
+    setHotelId={[Function]}
+    tripId="a"
+  />
+  <Connect(ScheduleList)
+    date={"1970-01-02T00:00:00.000Z"}
+    key="1"
+    setEventDate={[Function]}
+    setEventId={[Function]}
+    setHotelId={[Function]}
+    tripId="a"
+  />
+  <Connect(ScheduleList)
+    date={"1970-01-03T00:00:00.000Z"}
+    key="2"
+    setEventDate={[Function]}
+    setEventId={[Function]}
+    setHotelId={[Function]}
+    tripId="a"
+  />
+  <Modal
+    ariaHideApp={true}
+    bodyOpenClassName="ReactModal__Body--open"
+    className="modal"
+    closeTimeoutMS={200}
+    contentLabel="Event/Hotel Form"
+    isOpen={false}
+    onRequestClose={[Function]}
+    parentSelector={[Function]}
+    portalClassName="ReactModalPortal"
+    role="dialog"
+    shouldCloseOnEsc={true}
+    shouldCloseOnOverlayClick={true}
+    shouldFocusAfterRender={true}
+    shouldReturnFocusAfterClose={true}
+  >
+    <_default
+      date={"1970-01-01T00:00:00.000Z"}
+      onSubmit={[Function]}
+      tripId="a"
+    />
+  </Modal>
+</div>
+`;
+
+exports[`should render ScheduleDashboardPage correctly for one day trip 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="page-header__title"
+  >
+    <h3>
+      Tokyo - 2020 Spring
+    </h3>
+    <p>
+      1970/01/11
+    </p>
+  </div>
+  <Connect(ScheduleList)
+    date={"1970-01-11T00:00:00.000Z"}
+    key="0"
+    setEventDate={[Function]}
+    setEventId={[Function]}
+    setHotelId={[Function]}
+    tripId="c"
+  />
+  <Modal
+    ariaHideApp={true}
+    bodyOpenClassName="ReactModal__Body--open"
+    className="modal"
+    closeTimeoutMS={200}
+    contentLabel="Event/Hotel Form"
+    isOpen={false}
+    onRequestClose={[Function]}
+    parentSelector={[Function]}
+    portalClassName="ReactModalPortal"
+    role="dialog"
+    shouldCloseOnEsc={true}
+    shouldCloseOnOverlayClick={true}
+    shouldFocusAfterRender={true}
+    shouldReturnFocusAfterClose={true}
+  >
+    <_default
+      date={"1970-01-01T00:00:00.000Z"}
+      onSubmit={[Function]}
+      tripId="c"
+    />
+  </Modal>
+</div>
+`;

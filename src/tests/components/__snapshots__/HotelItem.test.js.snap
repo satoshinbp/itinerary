@@ -1,0 +1,402 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`for 2nd day of trips[0], check in hotels[0] should render HotelItem correctly 1`] = `
+<div
+  className="schedule-list-item"
+>
+  <div
+    className=" schedule-list-item__actions"
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon"
+      fixedWidth={false}
+      flip={null}
+      icon="trash-alt"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      onClick={[Function]}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+  </div>
+  <div
+    className="schedule-list-item__time"
+    onClick={[Function]}
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon show-for-desktop"
+      fixedWidth={false}
+      flip={null}
+      icon="moon"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+    Check In: 15:00~
+  </div>
+  <div
+    className="schedule-list-item__title"
+    onClick={[Function]}
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon show-for-desktop"
+      fixedWidth={false}
+      flip={null}
+      icon="hotel"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+    Waikiki Resort Hotel
+  </div>
+  <div
+    className="schedule-list-item__location"
+    onClick={[Function]}
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon show-for-desktop"
+      fixedWidth={false}
+      flip={null}
+      icon="map-marker-alt"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+    Waikiki
+  </div>
+</div>
+`;
+
+exports[`for 2nd day of trips[0], check out hotels[2] should render HotelItem correctly 1`] = `
+<div
+  className="schedule-list-item"
+>
+  <div
+    className=" schedule-list-item__actions"
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon"
+      fixedWidth={false}
+      flip={null}
+      icon="trash-alt"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      onClick={[Function]}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+  </div>
+  <div
+    className="schedule-list-item__time"
+    onClick={[Function]}
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon show-for-desktop"
+      fixedWidth={false}
+      flip={null}
+      icon="sun"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+    Check Out: ~10:00
+  </div>
+  <div
+    className="schedule-list-item__title"
+    onClick={[Function]}
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon show-for-desktop"
+      fixedWidth={false}
+      flip={null}
+      icon="hotel"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+    Hawai Travellars Inn
+  </div>
+  <div
+    className="schedule-list-item__location"
+    onClick={[Function]}
+  />
+</div>
+`;
+
+exports[`for 2nd day of trips[0], stay in hotels[3], morning should render HotelItem correctly 1`] = `
+<div
+  className="schedule-list-item"
+>
+  <div
+    className=" schedule-list-item__actions"
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon"
+      fixedWidth={false}
+      flip={null}
+      icon="trash-alt"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      onClick={[Function]}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+  </div>
+  <div
+    className="schedule-list-item__time"
+    onClick={[Function]}
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon show-for-desktop"
+      fixedWidth={false}
+      flip={null}
+      icon="moon"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+  </div>
+  <div
+    className="schedule-list-item__title"
+    onClick={[Function]}
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon show-for-desktop"
+      fixedWidth={false}
+      flip={null}
+      icon="hotel"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+    Hawai Hotel
+  </div>
+  <div
+    className="schedule-list-item__location"
+    onClick={[Function]}
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon show-for-desktop"
+      fixedWidth={false}
+      flip={null}
+      icon="map-marker-alt"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+    Hawai
+  </div>
+</div>
+`;
+
+exports[`for 2nd day of trips[0], stay in hotels[3], night should render HotelItem correctly 1`] = `
+<div
+  className="schedule-list-item"
+>
+  <div
+    className=" schedule-list-item__actions"
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon"
+      fixedWidth={false}
+      flip={null}
+      icon="trash-alt"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      onClick={[Function]}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+  </div>
+  <div
+    className="schedule-list-item__time"
+    onClick={[Function]}
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon show-for-desktop"
+      fixedWidth={false}
+      flip={null}
+      icon="sun"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+  </div>
+  <div
+    className="schedule-list-item__title"
+    onClick={[Function]}
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon show-for-desktop"
+      fixedWidth={false}
+      flip={null}
+      icon="hotel"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+    Hawai Hotel
+  </div>
+  <div
+    className="schedule-list-item__location"
+    onClick={[Function]}
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="icon show-for-desktop"
+      fixedWidth={false}
+      flip={null}
+      icon="map-marker-alt"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+    Hawai
+  </div>
+</div>
+`;

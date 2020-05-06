@@ -11,12 +11,12 @@ beforeEach(() => {
   dispatch = jest.fn()
 })
 
-test('should render TripListItem for multi days trip', () => {
+test('should render TripListItem correctly for multi days trip', () => {
   wrapper = shallow(<TripListItem dispatch={dispatch} {...trips[0]} setTripId={setTripId} />)
   expect(wrapper).toMatchSnapshot()
 })
 
-test('should render TripListItem for one day trip', () => {
+test('should render TripListItem correctly for one day trip', () => {
   wrapper = shallow(<TripListItem dispatch={dispatch} {...trips[2]} setTripId={setTripId} />)
   expect(wrapper).toMatchSnapshot()
 })

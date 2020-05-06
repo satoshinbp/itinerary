@@ -8,7 +8,7 @@ import HotelForm from './HotelForm'
 import { addEvent, editEvent } from '../actions/events'
 import { addHotel, editHotel } from '../actions/hotels'
 
-const ScheduleDashboardPage = ({ trip, events, hotels, addEvent, editEvent, addHotel, editHotel }) => {
+export const ScheduleDashboardPage = ({ trip, events, hotels, addEvent, editEvent, addHotel, editHotel }) => {
   const [eventId, setEventId] = useState(undefined)
   const [hotelId, setHotelId] = useState(undefined)
   const [eventDate, setEventDate] = useState(moment())
