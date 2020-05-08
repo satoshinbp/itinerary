@@ -1,24 +1,31 @@
-import moment from 'moment'
+import database from '../firebase/firebase'
 
-export const addTrip = (
-  {
-    id = '',
-    title = '',
-    startDate = 0,
-    endDate = 0,
-    note = ''
-  } = {}
-) => ({
+// ADD_TRIP
+export const addTrip = trip => ({
   type: 'ADD_TRIP',
-  trip: {
-    id,
-    title,
-    startDate,
-    endDate,
-    note
-  }
+  trip
 })
 
+export const startAddTrip = (tripData = {}) => {
+  return dispatch => {
+    const {
+      title = '',
+      startDate = 0,
+      endDate = 0,
+      note = ''
+    } = tripData
+    const trip = { title, startDate, endDate, note }
+
+    return database.ref('trips').push(trip).then(ref => {
+      dispatch(addTrip({
+        id: ref.key,
+        ...trip
+      }))
+    })
+  }
+}
+
+// EDIT_TRIP
 export const editTrip = (id, updates) => ({
   type: 'EDIT_TRIP',
   id,

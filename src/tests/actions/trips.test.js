@@ -1,9 +1,18 @@
-import {
-  addTrip,
-  editTrip,
-  removeTrip,
-} from '../../actions/trips'
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import { startAddTrip, addTrip, editTrip, removeTrip } from '../../actions/trips'
 import trips from '../fixtures/trips'
+import database from '../../firebase/firebase'
+
+const createMockStore = configureMockStore([thunk])
+
+beforeEach(done => {
+  const tripsData = {}
+  trips.forEach(({ id, title, startDate, endDate, note }) => {
+    tripsData[id] = { title, startDate, endDate, note}
+  })
+  database.ref('trips').set(tripsData).then(() => done())
+})
 
 test('should setup addTrip action object with provided values', () => {
   const action = addTrip(trips[1])
@@ -13,19 +22,69 @@ test('should setup addTrip action object with provided values', () => {
   })
 })
 
-test('should setup addTrip action object with defaults values', () => {
-  const action = addTrip()
-  expect(action).toEqual({
-    type: 'ADD_TRIP',
-    trip: {
-      id: '',
-      title: '',
-      startDate: 0,
-      endDate: 0,
-      note: ''
-    }
+test('should add trip to database and store', (done) => {
+  const store = createMockStore({})
+  const tripData = {
+    title: 'Bangkok - 2020 Summer',
+    startDate: 500000000,
+    endDate: 1000000000,
+    note: 'Yeah!'
+  }
+  store.dispatch(startAddTrip(tripData)).then(() => {
+    const actions = store.getActions()
+    expect(actions[0]).toEqual({
+      type: 'ADD_TRIP',
+      trip: {
+        id: expect.any(String),
+        ...tripData
+      }
+    })
+
+    return database.ref(`trips/${actions[0].trip.id}`).once('value')
+  }).then(snapshot => {
+    expect(snapshot.val()).toEqual(tripData)
+    done()
   })
 })
+
+test('should add trip with defaults to database and store', (done) => {
+  const store = createMockStore({})
+  const tripDefaults = {
+    title: '',
+    startDate: 0,
+    endDate: 0,
+    note: ''
+  }
+  store.dispatch(startAddTrip({})).then(() => {
+    const actions = store.getActions()
+    expect(actions[0]).toEqual({
+      type: 'ADD_TRIP',
+      trip: {
+        id: expect.any(String),
+        ...tripDefaults
+      }
+    })
+
+    return database.ref(`trips/${actions[0].trip.id}`).once('value')
+  }).then(snapshot => {
+    expect(snapshot.val()).toEqual(tripDefaults)
+    done()
+  })
+})
+
+// test('should setup addTrip action object with defaults values', () => {
+//   const action = addTrip()
+//   expect(action).toEqual({
+//     type: 'ADD_TRIP',
+//     trip: {
+//       id: '',
+//       title: '',
+//       startDate: 0,
+//       endDate: 0,
+//       note: ''
+//     }
+//   })
+// })
 
 test('should setup editTrip action object', () => {
   const id = 2

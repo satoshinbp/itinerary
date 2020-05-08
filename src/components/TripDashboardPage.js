@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import TripListButtons from './TripListButtons'
 import TripList from './TripList'
 import TripForm from './TripForm'
-import { addTrip, editTrip } from '../actions/trips'
+import {startAddTrip, editTrip } from '../actions/trips'
 
 export const TripDashboardPage = props => {
   const [tripId, setTripId] = React.useState(undefined)
@@ -13,7 +13,7 @@ export const TripDashboardPage = props => {
     if (props.trips.find(trip => trip.id === tripId)) {
       props.editTrip(tripId, trip)
     } else {
-      props.addTrip(trip)
+      props.startAddTrip(trip)
     }
     setTripId(undefined)
   }
@@ -46,7 +46,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addTrip: trip => dispatch(addTrip(trip)),
+  startAddTrip: trip => dispatch(startAddTrip(trip)),
   editTrip: (id, updates) => dispatch(editTrip(id, updates))
 })
 
