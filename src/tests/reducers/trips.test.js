@@ -63,3 +63,12 @@ test('should not remove trip if id is not found', () => {
   const state = tripsReducer(trips, action)
   expect(state).toEqual(trips)
 })
+
+test('should set trips', () => {
+  const action = {
+    type: 'SET_TRIPS',
+    trips: [trips[1]]
+  }
+  const state = tripsReducer(trips, action)
+  expect(state).toEqual([trips[1]])
+})

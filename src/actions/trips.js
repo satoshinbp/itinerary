@@ -16,9 +16,9 @@ export const startAddTrip = (tripData = {}) => {
     } = tripData
     const trip = { title, startDate, endDate, note }
 
-    return db.collection('trips').add(trip).then(ref => {
+    return db.collection('trips').add(trip).then(doc => {
       dispatch(addTrip({
-        id: ref.id,
+        id: doc.id,
         ...trip
       }))
     })
@@ -32,7 +32,31 @@ export const editTrip = (id, updates) => ({
   updates
 })
 
+// REMOVE_TRIP
 export const removeTrip = (id = '') => ({
   type: 'REMOVE_TRIP',
   id
 })
+
+//SET_TRIPS
+export const setTrips = trips => ({
+  type: 'SET_TRIPS',
+  trips
+})
+
+export const startSetTrips = () => {
+  return dispatch => {
+    return db.collection('trips').get().then(snapshot => {
+      const trips = []
+
+      snapshot.forEach(doc => {
+        trips.push({
+          id: doc.id,
+          ...doc.data()
+        })
+      })
+
+      dispatch(setTrips(trips))
+    })
+  }
+}

@@ -8,7 +8,7 @@ export default (state = tripsReducerDefaultState, action) => {
         action.trip
       ]
     case 'EDIT_TRIP':
-      return state.map((trip) => {
+      return state.map(trip => {
         if (trip.id === action.id) {
           return {
             ...trip,
@@ -20,6 +20,8 @@ export default (state = tripsReducerDefaultState, action) => {
       })
     case 'REMOVE_TRIP':
       return state.filter(({ id }) => id !== action.id)
+    case 'SET_TRIPS':
+      return action.trips
     default:
       return state
   }

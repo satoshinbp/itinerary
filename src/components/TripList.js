@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import TripListItem from './TripListItem'
 import selectTrips from '../selectors/trips'
 
-export const TripList = (props) => (
+export const TripList = props => (
   <div>
     <div className="trip-list-header">
       <div className="show-for-mobile">Trips</div>
