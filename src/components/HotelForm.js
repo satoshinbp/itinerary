@@ -1,5 +1,7 @@
 import React from 'react'
 import { DateRangePicker } from 'react-dates'
+import 'react-dates/lib/css/_datepicker.css'
+import 'react-dates/initialize'
 import DateFnsUtils from '@date-io/date-fns'
 import { TimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import moment from 'moment'

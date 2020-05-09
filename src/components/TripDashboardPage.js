@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 import TripListButtons from './TripListButtons'
 import TripList from './TripList'
 import TripForm from './TripForm'
-import {startAddTrip, editTrip } from '../actions/trips'
+import { startAddTrip, editTrip } from '../actions/trips'
+
+import db from '../firebase/firebase'
 
 export const TripDashboardPage = props => {
   const [tripId, setTripId] = React.useState(undefined)

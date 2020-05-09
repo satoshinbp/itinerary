@@ -1,4 +1,4 @@
-import database from '../firebase/firebase'
+import db from '../firebase/firebase'
 
 // ADD_TRIP
 export const addTrip = trip => ({
@@ -16,9 +16,9 @@ export const startAddTrip = (tripData = {}) => {
     } = tripData
     const trip = { title, startDate, endDate, note }
 
-    return database.ref('trips').push(trip).then(ref => {
+    return db.collection('trips').add(trip).then(ref => {
       dispatch(addTrip({
-        id: ref.key,
+        id: ref.id,
         ...trip
       }))
     })
