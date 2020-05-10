@@ -32,11 +32,23 @@ export const editTrip = (id, updates) => ({
   updates
 })
 
+export const startEditTrip = () => {
+
+}
+
 // REMOVE_TRIP
-export const removeTrip = (id = '') => ({
+export const removeTrip = id => ({
   type: 'REMOVE_TRIP',
   id
 })
+
+export const startRemoveTrip = (id = '') => {
+  return dispatch => {
+    return db.collection('trips').doc(id).delete().then(() => {
+      dispatch(removeTrip(id))
+    })
+  }
+}
 
 //SET_TRIPS
 export const setTrips = trips => ({

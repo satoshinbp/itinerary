@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { removeTrip } from '../actions/trips'
+import { startRemoveTrip } from '../actions/trips'
 
-export const TripListItem = ({ dispatch, id, title, startDate, endDate, setTripId }) => {
+export const TripListItem = ({ startRemoveTrip, id, title, startDate, endDate, setTripId }) => {
   const confirmRemoveTrip = () => {
     const result = confirm('Are you sure you want to delete this trip?');
 
     if (result) {
-      dispatch(removeTrip(id))
+      startRemoveTrip(id)
     }
   }
 
@@ -46,4 +46,8 @@ export const TripListItem = ({ dispatch, id, title, startDate, endDate, setTripI
   )
 }
 
-export default connect()(TripListItem)
+const mapDispatchToProps = dispatch => ({
+  startRemoveTrip: id => dispatch(startRemoveTrip(id))
+})
+
+export default connect(undefined, mapDispatchToProps)(TripListItem)
