@@ -25,10 +25,10 @@ trips.forEach(({ id, title, startDate, endDate, note }) => {
 
 describe('ADD_TRIP', () => {
   test('should setup addTrip action object with provided values', () => {
-    const action = addTrip(trips[1])
+    const action = addTrip(trips[0])
     expect(action).toEqual({
       type: 'ADD_TRIP',
-      trip: trips[1]
+      trip: trips[0]
     })
   })
 
@@ -77,9 +77,9 @@ describe('ADD_TRIP', () => {
       })
 
       return db.collection('trips').doc(actions[0].trip.id).get()
-    }).then(doc => {
-      expect(doc.data()).toEqual(tripDefaults)
-      db.collection('trips').doc(doc.id).delete()
+    }).then(snapshot => {
+      expect(snapshot.data()).toEqual(tripDefaults)
+      db.collection('trips').doc(snapshot.id).delete()
       done()
     })
   })
@@ -87,13 +87,33 @@ describe('ADD_TRIP', () => {
 
 describe('EDIT_TRIP', () => {
   test('should setup editTrip action object', () => {
-    const id = 2
+    const id = trips[1].id
     const updates = { title: "Winter Vacation in Hokkaido" }
     const action = editTrip(id, updates)
     expect(action).toEqual({
       type: 'EDIT_TRIP',
       id,
       updates
+    })
+  })
+
+  test('should edit trip in database and store', done => {
+    const store = createMockStore({})
+    const id = trips[1].id
+    const title = 'Winter Vacation in Hokkaido'
+    const updates = { title }
+    store.dispatch(startEditTrip(id, updates)).then(() => {
+      const actions = store.getActions()
+      expect(actions[0]).toEqual({
+        type: 'EDIT_TRIP',
+        id,
+        updates
+      })
+      return db.collection('trips').doc(id).get()
+    }).then(snapshot => {
+      expect(snapshot.data().title).toEqual(title)
+      db.collection('trips').doc(snapshot.id).update({ title: 'Honeymoon in Morrocco' })
+      done()
     })
   })
 })
@@ -111,16 +131,21 @@ describe('REMOVE_TRIP', () => {
   test('should remove trip from database and store by provided id', done => {
     const store = createMockStore({})
     const id = trips[0].id
-    store.dispatch(startRemoveTrip(id)).then(() => {
+    store.dispatch(startRemoveTrip(id)).then(snapshot => {
       const actions = store.getActions()
       expect(actions[0]).toEqual({
         type: 'REMOVE_TRIP',
         id
       })
-
-      return db.collection('trips').doc(id).delete()
+      return db.collection('trips').doc(id).get()
     }).then(snapshot => {
-      expect(snapshot).toBeFalsy()
+      expect(snapshot).toBeFalsy
+      db.collection('trips').doc(id).set({
+        title: trips[0].title,
+        startDate: trips[0].startDate,
+        endDate: trips[0].endDate,
+        note: trips[0].note,
+      })
       done()
     })
   })

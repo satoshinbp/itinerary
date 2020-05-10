@@ -32,8 +32,12 @@ export const editTrip = (id, updates) => ({
   updates
 })
 
-export const startEditTrip = () => {
-
+export const startEditTrip = (id, updates) => {
+  return dispatch => {
+    return db.collection('trips').doc(id).update(updates).then(() => {
+      dispatch(editTrip(id, updates))
+    })
+  }
 }
 
 // REMOVE_TRIP
