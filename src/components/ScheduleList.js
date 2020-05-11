@@ -14,8 +14,8 @@ export const ScheduleList = (props) => {
           <button
             className="btn-push btn-push--small"
             onClick={() => {
-              props.setEventId(uuidv4())
-              props.setEventDate(props.date)
+              props.setEventId(true)
+              props.setDateOnEdit(props.date)
             }}
           >
             Add Event
@@ -24,7 +24,7 @@ export const ScheduleList = (props) => {
             className="btn-push btn-push--small"
             onClick={() => {
               props.setHotelId(uuidv4())
-              props.setEventDate(props.date)
+              props.setDateOnEdit(props.date)
             }}
           >
             Add Hotel

@@ -258,7 +258,7 @@ exports[`should render TripForm correctly with trip data 1`] = `
     className="textarea"
     onChange={[Function]}
     placeholder="Add a note for your trip (optional)"
-    value="Locatin is changed from Canada to Morocco."
+    value="Location is changed from Canada to Morocco."
   />
   <button
     className="btn-push"

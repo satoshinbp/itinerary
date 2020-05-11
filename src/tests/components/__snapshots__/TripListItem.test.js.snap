@@ -52,7 +52,7 @@ exports[`should render TripListItem correctly for multi days trip 1`] = `
     className="trip-list-item__title"
     to="/schedule/a"
   >
-    Summer Vacation in Hawai
+    Summer Vacation in Hawaii
   </Link>
   <Link
     className="trip-list-item__dates"

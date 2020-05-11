@@ -1,15 +1,14 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { removeEvent } from '../../actions/events'
 import { EventItem } from '../../components/EventItem'
 import events from '../fixtures/events'
 
-let dispatch, setEventId, wrapper
+let startRemoveEvent, setEventId, wrapper
 
 beforeEach(() => {
-  dispatch = jest.fn()
+  startRemoveEvent = jest.fn()
   setEventId = jest.fn()
-  wrapper = shallow(<EventItem dispatch={dispatch} {...events[0]} setEventId={setEventId} />)
+  wrapper = shallow(<EventItem startRemoveEvent={startRemoveEvent} {...events[0]} setEventId={setEventId} />)
 })
 
 test('should render EventItem correctly', () => {
@@ -19,7 +18,7 @@ test('should render EventItem correctly', () => {
 test('should remove event when trash icon clicked', () => {
   window.confirm = jest.fn(() => true)
   wrapper.find({ icon: 'trash-alt' }).simulate('click')
-  expect(dispatch).toBeCalledWith(removeEvent(events[0].id))
+  expect(startRemoveEvent).toBeCalledWith(events[0].id)
 })
 
 test('should set event id trip on click time', () => {

@@ -75,13 +75,13 @@ exports[`should render TripList with trips 1`] = `
       key="a"
       note=""
       startDate={0}
-      title="Summer Vacation in Hawai"
+      title="Summer Vacation in Hawaii"
     />
     <Connect(TripListItem)
       endDate={-86400000}
       id="b"
       key="b"
-      note="Locatin is changed from Canada to Morocco."
+      note="Location is changed from Canada to Morocco."
       startDate={-864000000}
       title="Honeymoon in Morrocco"
     />

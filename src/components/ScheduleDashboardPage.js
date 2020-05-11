@@ -5,13 +5,13 @@ import moment from 'moment'
 import ScheduleList from './ScheduleList'
 import EventForm from './EventForm'
 import HotelForm from './HotelForm'
-import { addEvent, editEvent } from '../actions/events'
+import { startAddEvent, startEditEvent } from '../actions/events'
 import { addHotel, editHotel } from '../actions/hotels'
 
-export const ScheduleDashboardPage = ({ trip, events, hotels, addEvent, editEvent, addHotel, editHotel }) => {
+export const ScheduleDashboardPage = ({ trip, events, hotels, startAddEvent, startEditEvent, addHotel, editHotel }) => {
   const [eventId, setEventId] = useState(undefined)
   const [hotelId, setHotelId] = useState(undefined)
-  const [eventDate, setEventDate] = useState(moment())
+  const [dateOnEdit, setDateOnEdit] = useState(moment())
 
   const listAllDate = (dates, params_start, params_end) => {
     let start = moment(params_start)
@@ -58,7 +58,7 @@ export const ScheduleDashboardPage = ({ trip, events, hotels, addEvent, editEven
             tripId={trip.id}
             setEventId={setEventId}
             setHotelId={setHotelId}
-            setEventDate={setEventDate}
+            setDateOnEdit={setDateOnEdit}
           />
         ))
       }
@@ -69,25 +69,23 @@ export const ScheduleDashboardPage = ({ trip, events, hotels, addEvent, editEven
         onRequestClose={() => {
           setEventId(undefined)
           setHotelId(undefined)
-          setEventDate(moment())
+          setDateOnEdit(moment())
         }}
         closeTimeoutMS={200}
       >
         {
           !!eventId ? (
             <EventForm
-              onSubmit={event => {
+              onSubmit={eventData => {
                 if (events.find(event => event.id === eventId)) {
-                  editEvent(eventId, event)
+                  startEditEvent(eventId, eventData)
                 } else {
-                  addEvent(event)
+                  startAddEvent(trip.id, eventData)
                 }
                 setEventId(undefined)
-                setEventDate(moment())
+                setDateOnEdit(moment())
               }}
-              id={eventId}
-              tripId={trip.id}
-              date={eventDate}
+              date={dateOnEdit}
               event={events.find(event => event.id === eventId)}
             />
           ) : (
@@ -99,11 +97,11 @@ export const ScheduleDashboardPage = ({ trip, events, hotels, addEvent, editEven
                     addHotel(hotel)
                   }
                   setHotelId(undefined)
-                  setEventDate(moment())
+                  setDateOnEdit(moment())
                 }}
                 id={hotelId}
                 tripId={trip.id}
-                date={eventDate}
+                date={dateOnEdit}
                 hotel={hotels.find(hotel => hotel.id === hotelId)}
               />
             )
@@ -120,8 +118,8 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addEvent: event => dispatch(addEvent(event)),
-  editEvent: (id, updates) => dispatch(editEvent(id, updates)),
+  startAddEvent: (tripId, event) => dispatch(startAddEvent(tripId, event)),
+  startEditEvent: (tripId, id, updates) => dispatch(startEditEvent(tripId, id, updates)),
   addHotel: hotel => dispatch(addHotel(hotel)),
   editHotel: (id, updates) => dispatch(editHotel(id, updates))
 })

@@ -9,11 +9,11 @@ import { startAddTrip, startEditTrip } from '../actions/trips'
 export const TripDashboardPage = props => {
   const [tripId, setTripId] = React.useState(undefined)
 
-  const onSubmit = trip => {
+  const onSubmit = tripData => {
     if (props.trips.find(trip => trip.id === tripId)) {
-      props.startEditTrip(tripId, trip)
+      props.startEditTrip(tripId, tripData)
     } else {
-      props.startAddTrip(trip)
+      props.startAddTrip(tripData)
     }
     setTripId(undefined)
   }
@@ -31,7 +31,6 @@ export const TripDashboardPage = props => {
       >
         <TripForm
           onSubmit={onSubmit}
-          tripId={tripId}
           trip={props.trips.find(trip => trip.id === tripId)}
         />
       </Modal>

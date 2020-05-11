@@ -5,7 +5,6 @@ import 'react-dates/initialize'
 import moment from 'moment'
 
 export default (props) => {
-  const id = props.trip ? props.trip.id : props.tripId
   const [title, setTitle] = React.useState(props.trip ? props.trip.title : '')
   const [startDate, setStartDate] = React.useState(props.trip ? moment(props.trip.startDate) : moment().startOf('day'))
   const [endDate, setEndDate] = React.useState(props.trip ? moment(props.trip.endDate) : undefined)
@@ -40,7 +39,6 @@ export default (props) => {
     } else {
       setError('')
       props.onSubmit({
-        id,
         title,
         startDate: startDate.valueOf(),
         endDate: endDate.valueOf(),

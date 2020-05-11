@@ -1,14 +1,14 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import {
-  startAddTrip,
   addTrip,
-  startEditTrip,
+  startAddTrip,
   editTrip,
-  startRemoveTrip,
+  startEditTrip,
   removeTrip,
-  startSetTrips,
-  setTrips
+  startRemoveTrip,
+  setTrips,
+  startSetTrips
 } from '../../actions/trips'
 import db from '../../firebase/firebase'
 import trips from '../fixtures/trips'

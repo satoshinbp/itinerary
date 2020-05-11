@@ -7,8 +7,6 @@ import { TimePicker, MuiPickersUtilsProvider} from '@material-ui/pickers'
 import moment from 'moment'
 
 export default (props) => {
-  const id = props.event ? props.event.id : props.id
-  const tripId = props.event ? props.event.tripId : props.tripId
   const [title, setTitle] = React.useState(props.event ? props.event.title : '')
   const [date, setDate] = React.useState(props.event ? moment(props.event.date) : moment(props.date))
   const [startTime, setStartTime] = React.useState(props.event ? moment(props.event.startTime) : moment(props.date).hour(12).minutes(0))
@@ -45,8 +43,6 @@ export default (props) => {
     } else {
       setError('')
       props.onSubmit({
-        id,
-        tripId,
         title,
         date: date.valueOf(),
         startTime: startTime.valueOf(),

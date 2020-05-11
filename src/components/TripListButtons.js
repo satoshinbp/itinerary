@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { v4 as uuidv4 } from 'uuid'
 import { showUpcomingTrip, showPastTrip, showAllTrip } from '../actions/filters'
 
 export const TripListButtons = (props) => {
@@ -21,7 +20,7 @@ export const TripListButtons = (props) => {
         <option className="option" value="past">Past Trip</option>
         <option className="option" value="all">All Trip</option>
       </select>
-      <button className="btn-push" onClick={() => props.setTripId(uuidv4())}>Add Trip</button>
+      <button className="btn-push" onClick={() => props.setTripId(true)}>Add Trip</button>
     </div>
   )
 }

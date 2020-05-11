@@ -45,9 +45,9 @@ describe.each(['upcoming', 'past', 'all'])('initial filter %s', initFilter => {
   })
 })
 
-test('should set TripId when trip add button clicked', () => {
+test('should set TripId as true when trip add button clicked', () => {
   const setTripId = jest.fn()
   wrapper = shallow(<TripListButtons setTripId={setTripId} />)
   wrapper.find('button').simulate('click')
-  expect(setTripId).toBeCalledWith(expect.any(String))
+  expect(setTripId).toBeCalledWith(true)
 })

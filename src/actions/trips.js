@@ -16,9 +16,9 @@ export const startAddTrip = (tripData = {}) => {
     } = tripData
     const trip = { title, startDate, endDate, note }
 
-    return db.collection('trips').add(trip).then(doc => {
+    return db.collection('trips').add(trip).then(snapshot => {
       dispatch(addTrip({
-        id: doc.id,
+        id: snapshot.id,
         ...trip
       }))
     })
@@ -65,10 +65,10 @@ export const startSetTrips = () => {
     return db.collection('trips').get().then(snapshot => {
       const trips = []
 
-      snapshot.forEach(doc => {
+      snapshot.forEach(childSnapshot => {
         trips.push({
-          id: doc.id,
-          ...doc.data()
+          id: childSnapshot.id,
+          ...childSnapshot.data()
         })
       })
 

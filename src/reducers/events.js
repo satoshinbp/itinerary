@@ -20,6 +20,8 @@ export default (state = eventsReducerDefaultState, action) => {
       })
     case 'REMOVE_EVENT':
       return state.filter(({ id }) => id !== action.id)
+    case 'SET_EVENTS':
+      return action.events
     default:
       return state
   }

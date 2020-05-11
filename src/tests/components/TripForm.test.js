@@ -87,7 +87,6 @@ test('should call onSubmit prop for valid form submission', () => {
   })
   expect(setState).toBeCalledWith('')
   expect(onSubmitSpy).lastCalledWith({
-    id: trips[0].id,
     title: trips[0].title,
     startDate: trips[0].startDate,
     endDate: trips[0].endDate,

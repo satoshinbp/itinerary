@@ -9,6 +9,7 @@ import AppRouter, { history } from './routers/AppRouter'
 import configureStore from './store/configureStore'
 import { login, logout } from './actions/auth'
 import { startSetTrips } from './actions/trips'
+import { startSetEvents } from './actions/events'
 import { firebase } from './firebase/firebase'
 import LoadingPage from './components/LoadingPage'
 import 'normalize.css/normalize.css'
@@ -36,6 +37,8 @@ firebase.auth().onAuthStateChanged(user => {
   if (user) {
     store.dispatch(login(user.uid))
     store.dispatch(startSetTrips()).then(() => {
+      store.dispatch(startSetEvents())
+    }).then(() => {
       renderApp()
       if (history.location.pathname === '/') {
         history.push('/dashboard')
