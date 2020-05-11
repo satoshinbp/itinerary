@@ -122,7 +122,7 @@ describe('EDIT_EVENT', () => {
       return db.collection('trips').doc(events[1].tripId).collection('events').doc(id).get()
     }).then(snapshot => {
       expect(snapshot.data().title).toEqual(title)
-      db.collection('trips').doc(events[1].tripId).collection('events').doc(id).set(events[1])
+      db.collection('trips').doc(events[1].tripId).collection('events').doc(id).update({ title: events[1].title })
     }).then(() => {
       done()
     })
@@ -136,6 +136,24 @@ describe('REMOVE_EVENT', () => {
     expect(action).toEqual({
       type: 'REMOVE_EVENT',
       id
+    })
+  })
+
+  test('should remove event from database and store by provided id', done => {
+    const store = createMockStore({})
+    const { tripId, id, title, date, startTime, endTime, location, note } = events[2]
+    store.dispatch(startRemoveEvent(id)).then(() => {
+      const actions = store.getActions()
+      expect(actions[0]).toEqual({
+        type: 'REMOVE_EVENT',
+        id
+      })
+      return db.collection('trips').doc(tripId).collection('events').doc(id).get()
+    }).then(snapshot => {
+      expect(snapshot).toBeFalsy
+      db.collection('trips').doc(tripId).collection('events').doc(id).set({ title, date, startTime, endTime, location, note }).then(() => {
+        done()
+      })
     })
   })
 })

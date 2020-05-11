@@ -15,10 +15,6 @@ import trips from '../fixtures/trips'
 
 const createMockStore = configureMockStore([thunk])
 
-trips.forEach(({ id }) => {
-  db.collection('trips').doc(id).delete()
-})
-
 trips.forEach(({ id, title, startDate, endDate, note }) => {
   db.collection('trips').doc(id).set({ title, startDate, endDate, note })
 })
@@ -54,6 +50,7 @@ describe('ADD_TRIP', () => {
     }).then(doc => {
       expect(doc.data()).toEqual(tripData)
       db.collection('trips').doc(doc.id).delete()
+    }).then(() => {
       done()
     })
   })
@@ -80,6 +77,7 @@ describe('ADD_TRIP', () => {
     }).then(snapshot => {
       expect(snapshot.data()).toEqual(tripDefaults)
       db.collection('trips').doc(snapshot.id).delete()
+    }).then(() => {
       done()
     })
   })
@@ -112,7 +110,8 @@ describe('EDIT_TRIP', () => {
       return db.collection('trips').doc(id).get()
     }).then(snapshot => {
       expect(snapshot.data().title).toEqual(title)
-      db.collection('trips').doc(snapshot.id).update({ title: 'Honeymoon in Morrocco' })
+      db.collection('trips').doc(id).update({ title: trips[1].title })
+    }).then(() => {
       done()
     })
   })
@@ -131,7 +130,7 @@ describe('REMOVE_TRIP', () => {
   test('should remove trip from database and store by provided id', done => {
     const store = createMockStore({})
     const id = trips[0].id
-    store.dispatch(startRemoveTrip(id)).then(snapshot => {
+    store.dispatch(startRemoveTrip(id)).then(() => {
       const actions = store.getActions()
       expect(actions[0]).toEqual({
         type: 'REMOVE_TRIP',
@@ -146,6 +145,7 @@ describe('REMOVE_TRIP', () => {
         endDate: trips[0].endDate,
         note: trips[0].note,
       })
+    }).then(() => {
       done()
     })
   })
