@@ -14,13 +14,15 @@ import db from '../../firebase/firebase'
 import trips from '../fixtures/trips'
 import events from '../fixtures/events'
 
+const uid = 'thisismytestuid'
+const defaultAuthState = { auth: { uid } }
 const createMockStore = configureMockStore([thunk])
 
 trips.forEach(({ id, title, startDate, endDate, note }) => {
-  db.collection('trips').doc(id).set({ title, startDate, endDate, note })
+  db.collection('users').doc(uid).collection('trips').doc(id).set({ title, startDate, endDate, note })
 })
 events.forEach(({ id, tripId, title, date, startTime, endTime, location, note }) => {
-  db.collection('trips').doc(tripId).collection('events').doc(id).set({ title, date, startTime, endTime, location, note })
+  db.collection('users').doc(uid).collection('trips').doc(tripId).collection('events').doc(id).set({ title, date, startTime, endTime, location, note })
 })
 
 describe('ADD_EVENT', () => {
@@ -32,8 +34,8 @@ describe('ADD_EVENT', () => {
     })
   })
 
-  test('should add event to database and store with provided values', done => {
-    const store = createMockStore({})
+  test('should add event to database and store', done => {
+    const store = createMockStore(defaultAuthState)
     const tripId = 'a'
     const eventData = {
       title: 'Beach Cafe',
@@ -53,41 +55,10 @@ describe('ADD_EVENT', () => {
           ...eventData
         }
       })
-      return db.collection('trips').doc(tripId).collection('events').doc(actions[0].event.id).get()
+      return db.collection('users').doc(uid).collection('trips').doc(tripId).collection('events').doc(actions[0].event.id).get()
     }).then(snapshot => {
       expect(snapshot.data()).toEqual(eventData)
-      db.collection('trips').doc(tripId).collection('events').doc(snapshot.id).delete()
-    }).then(() => {
-      done()
-    })
-  })
-
-  test('should add event to database and store with default values', done => {
-    const store = createMockStore({})
-    const tripId = 'a'
-    const eventDefaults = {
-      title: '',
-      date: 0,
-      startTime: 0,
-      endTime: 0,
-      location: '',
-      note: ''
-    }
-    store.dispatch(startAddEvent(tripId)).then(() => {
-      const actions = store.getActions()
-      expect(actions[0]).toEqual({
-        type: 'ADD_EVENT',
-        event: {
-          id: expect.any(String),
-          tripId,
-          ...eventDefaults
-        }
-      })
-
-      return db.collection('trips').doc(tripId).collection('events').doc(actions[0].event.id).get()
-    }).then(snapshot => {
-      expect(snapshot.data()).toEqual(eventDefaults)
-      db.collection('trips').doc(tripId).collection('events').doc(snapshot.id).delete()
+      db.collection('users').doc(uid).collection('trips').doc(tripId).collection('events').doc(snapshot.id).delete()
     }).then(() => {
       done()
     })
@@ -108,7 +79,7 @@ describe('EDIT_EVENT', () => {
   })
 
   test('should edit event in database and store', done => {
-    const store = createMockStore({})
+    const store = createMockStore(defaultAuthState)
     const id = events[1].id
     const title = '豊洲市場見学'
     const updates = { title }
@@ -119,10 +90,10 @@ describe('EDIT_EVENT', () => {
         id,
         updates
       })
-      return db.collection('trips').doc(events[1].tripId).collection('events').doc(id).get()
+      return db.collection('users').doc(uid).collection('trips').doc(events[1].tripId).collection('events').doc(id).get()
     }).then(snapshot => {
       expect(snapshot.data().title).toEqual(title)
-      db.collection('trips').doc(events[1].tripId).collection('events').doc(id).update({ title: events[1].title })
+      db.collection('users').doc(uid).collection('trips').doc(events[1].tripId).collection('events').doc(id).update({ title: events[1].title })
     }).then(() => {
       done()
     })
@@ -130,7 +101,7 @@ describe('EDIT_EVENT', () => {
 })
 
 describe('REMOVE_EVENT', () => {
-  test('should setup removeEvent action object with provided values', () => {
+  test('should setup removeEvent action object', () => {
     const id = events[2].id
     const action = removeEvent(id)
     expect(action).toEqual({
@@ -139,8 +110,8 @@ describe('REMOVE_EVENT', () => {
     })
   })
 
-  test('should remove event from database and store by provided id', done => {
-    const store = createMockStore({})
+  test('should remove event from database and store', done => {
+    const store = createMockStore(defaultAuthState)
     const { tripId, id, title, date, startTime, endTime, location, note } = events[2]
     store.dispatch(startRemoveEvent(id)).then(() => {
       const actions = store.getActions()
@@ -148,11 +119,32 @@ describe('REMOVE_EVENT', () => {
         type: 'REMOVE_EVENT',
         id
       })
-      return db.collection('trips').doc(tripId).collection('events').doc(id).get()
+      return db.collection('users').doc(uid).collection('trips').doc(tripId).collection('events').doc(id).get()
     }).then(snapshot => {
       expect(snapshot).toBeFalsy
-      db.collection('trips').doc(tripId).collection('events').doc(id).set({ title, date, startTime, endTime, location, note }).then(() => {
+      db.collection('users').doc(uid).collection('trips').doc(tripId).collection('events').doc(id).set({ title, date, startTime, endTime, location, note }).then(() => {
         done()
+      })
+    })
+  })
+})
+
+describe('SET_EVENTS', () => {
+  test('should setup setEvents action object', () => {
+    const action = setEvents(events)
+    expect(action).toEqual({
+      type: 'SET_EVENTS',
+      events
+    })
+  })
+
+  test('should fetch events from firebase', () => {
+    const store = createMockStore(defaultAuthState)
+    store.dispatch(startSetEvents()).then(() => {
+      const actions = store.getActions()
+      expect(actions[0]).toEqual({
+        type: 'SET_EVENTS',
+        events
       })
     })
   })

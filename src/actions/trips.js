@@ -6,17 +6,13 @@ export const addTrip = trip => ({
   trip
 })
 
-export const startAddTrip = (tripData = {}) => {
-  return dispatch => {
-    const {
-      title = '',
-      startDate = 0,
-      endDate = 0,
-      note = ''
-    } = tripData
+export const startAddTrip = tripData => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid
+    const {　title,　startDate,　endDate,　note　} = tripData
     const trip = { title, startDate, endDate, note }
 
-    return db.collection('trips').add(trip).then(snapshot => {
+    return db.collection('users').doc(uid).collection('trips').add(trip).then(snapshot => {
       dispatch(addTrip({
         id: snapshot.id,
         ...trip
@@ -33,8 +29,9 @@ export const editTrip = (id, updates) => ({
 })
 
 export const startEditTrip = (id, updates) => {
-  return dispatch => {
-    return db.collection('trips').doc(id).update(updates).then(() => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid
+    return db.collection('users').doc(uid).collection('trips').doc(id).update(updates).then(() => {
       dispatch(editTrip(id, updates))
     })
   }
@@ -46,9 +43,10 @@ export const removeTrip = id => ({
   id
 })
 
-export const startRemoveTrip = (id = '') => {
-  return dispatch => {
-    return db.collection('trips').doc(id).delete().then(() => {
+export const startRemoveTrip = id => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid
+    return db.collection('users').doc(uid).collection('trips').doc(id).delete().then(() => {
       dispatch(removeTrip(id))
     })
   }
@@ -61,8 +59,9 @@ export const setTrips = trips => ({
 })
 
 export const startSetTrips = () => {
-  return dispatch => {
-    return db.collection('trips').get().then(snapshot => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid
+    return db.collection('users').doc(uid).collection('trips').get().then(snapshot => {
       const trips = []
 
       snapshot.forEach(childSnapshot => {

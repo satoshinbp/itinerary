@@ -6,19 +6,13 @@ export const addEvent = event => ({
   event
 })
 
-export const startAddEvent = (tripId, eventData = {}) => {
-  return dispatch => {
-    const {
-      title = '',
-      date = 0,
-      startTime = 0,
-      endTime = 0,
-      location = '',
-      note = ''
-    } = eventData
+export const startAddEvent = (tripId, eventData) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid
+    const { title, date, startTime, endTime, location, note } = eventData
     const event = { title, date, startTime, endTime, location, note }
 
-    return db.collection('trips').doc(tripId).collection('events').add(event).then(snapshot => {
+    return db.collection('users').doc(uid).collection('trips').doc(tripId).collection('events').add(event).then(snapshot => {
       dispatch(addEvent({
         id: snapshot.id,
         tripId,
@@ -55,7 +49,7 @@ export const removeEvent = id => ({
   id
 })
 
-export const startRemoveEvent = (id = '') => {
+export const startRemoveEvent = id => {
   return dispatch => {
     return db.collectionGroup('events').get().then(querySnapshot => {
       querySnapshot.forEach(queryDocumentSnapshot => {
@@ -76,16 +70,19 @@ export const setEvents = events => ({
 })
 
 export const startSetEvents = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid
     return db.collectionGroup('events').get().then(querySnapshot => {
       const events = []
 
       querySnapshot.forEach(queryDocumentSnapshot => {
-        events.push({
-          id: queryDocumentSnapshot.id,
-          tripId: queryDocumentSnapshot.ref.parent.parent.id,
-          ...queryDocumentSnapshot.data()
-        })
+        if (queryDocumentSnapshot.ref.parent.parent.parent.parent.id === uid) {
+          events.push({
+            id: queryDocumentSnapshot.id,
+            tripId: queryDocumentSnapshot.ref.parent.parent.id,
+            ...queryDocumentSnapshot.data()
+          })
+        }
       })
 
       dispatch(setEvents(events))

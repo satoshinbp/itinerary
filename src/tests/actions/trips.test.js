@@ -13,14 +13,16 @@ import {
 import db from '../../firebase/firebase'
 import trips from '../fixtures/trips'
 
+const uid = 'thisismytestuid'
+const defaultAuthState = { auth: { uid } }
 const createMockStore = configureMockStore([thunk])
 
 trips.forEach(({ id, title, startDate, endDate, note }) => {
-  db.collection('trips').doc(id).set({ title, startDate, endDate, note })
+  db.collection('users').doc(uid).collection('trips').doc(id).set({ title, startDate, endDate, note })
 })
 
 describe('ADD_TRIP', () => {
-  test('should setup addTrip action object with provided values', () => {
+  test('should setup addTrip action object', () => {
     const action = addTrip(trips[0])
     expect(action).toEqual({
       type: 'ADD_TRIP',
@@ -28,8 +30,8 @@ describe('ADD_TRIP', () => {
     })
   })
 
-  test('should add trip to database and store with provided values', done => {
-    const store = createMockStore({})
+  test('should add trip to database and store', done => {
+    const store = createMockStore(defaultAuthState)
     const tripData = {
       title: 'Bangkok - 2020 Summer',
       startDate: 500000000,
@@ -46,37 +48,10 @@ describe('ADD_TRIP', () => {
         }
       })
 
-      return db.collection('trips').doc(actions[0].trip.id).get()
+      return db.collection('users').doc(uid).collection('trips').doc(actions[0].trip.id).get()
     }).then(doc => {
       expect(doc.data()).toEqual(tripData)
-      db.collection('trips').doc(doc.id).delete()
-    }).then(() => {
-      done()
-    })
-  })
-
-  test('should add trip to database and store with default values', (done) => {
-    const store = createMockStore({})
-    const tripDefaults = {
-      title: '',
-      startDate: 0,
-      endDate: 0,
-      note: ''
-    }
-    store.dispatch(startAddTrip({})).then(() => {
-      const actions = store.getActions()
-      expect(actions[0]).toEqual({
-        type: 'ADD_TRIP',
-        trip: {
-          id: expect.any(String),
-          ...tripDefaults
-        }
-      })
-
-      return db.collection('trips').doc(actions[0].trip.id).get()
-    }).then(snapshot => {
-      expect(snapshot.data()).toEqual(tripDefaults)
-      db.collection('trips').doc(snapshot.id).delete()
+      db.collection('users').doc(uid).collection('trips').doc(doc.id).delete()
     }).then(() => {
       done()
     })
@@ -96,7 +71,7 @@ describe('EDIT_TRIP', () => {
   })
 
   test('should edit trip in database and store', done => {
-    const store = createMockStore({})
+    const store = createMockStore(defaultAuthState)
     const id = trips[1].id
     const title = 'Winter Vacation in Hokkaido'
     const updates = { title }
@@ -107,10 +82,10 @@ describe('EDIT_TRIP', () => {
         id,
         updates
       })
-      return db.collection('trips').doc(id).get()
+      return db.collection('users').doc(uid).collection('trips').doc(id).get()
     }).then(snapshot => {
       expect(snapshot.data().title).toEqual(title)
-      db.collection('trips').doc(id).update({ title: trips[1].title })
+      db.collection('users').doc(uid).collection('trips').doc(id).update({ title: trips[1].title })
     }).then(() => {
       done()
     })
@@ -118,7 +93,7 @@ describe('EDIT_TRIP', () => {
 })
 
 describe('REMOVE_TRIP', () => {
-  test('should setup removeTrip action object by provided id', () => {
+  test('should setup removeTrip action object', () => {
     const id = 3
     const action = removeTrip(id)
     expect(action).toEqual({
@@ -127,8 +102,8 @@ describe('REMOVE_TRIP', () => {
     })
   })
 
-  test('should remove trip from database and store by provided id', done => {
-    const store = createMockStore({})
+  test('should remove trip from database and store', done => {
+    const store = createMockStore(defaultAuthState)
     const id = trips[0].id
     store.dispatch(startRemoveTrip(id)).then(() => {
       const actions = store.getActions()
@@ -136,10 +111,10 @@ describe('REMOVE_TRIP', () => {
         type: 'REMOVE_TRIP',
         id
       })
-      return db.collection('trips').doc(id).get()
+      return db.collection('users').doc(uid).collection('trips').doc(id).get()
     }).then(snapshot => {
       expect(snapshot).toBeFalsy
-      db.collection('trips').doc(id).set({
+      db.collection('users').doc(uid).collection('trips').doc(id).set({
         title: trips[0].title,
         startDate: trips[0].startDate,
         endDate: trips[0].endDate,
@@ -161,7 +136,7 @@ describe('SET_TRIPS', () => {
   })
 
   test('should fetch trips from firebase', () => {
-    const store = createMockStore({})
+    const store = createMockStore(defaultAuthState)
     store.dispatch(startSetTrips()).then(() => {
       const actions = store.getActions()
       expect(actions[0]).toEqual({
