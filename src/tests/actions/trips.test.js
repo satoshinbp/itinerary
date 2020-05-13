@@ -19,7 +19,7 @@ const tripsRef = db.collection('users').doc(uid).collection('trips')
 const createMockStore = configureMockStore([thunk])
 
 trips.forEach(({ id, title, startDate, endDate, note }) => {
-  tripsRef.doc(id).set({ title, startDate, endDate, note })
+  tripsRef.doc(id).set({ title, startDate, endDate, note, user: uid })
 })
 
 describe('ADD_TRIP', () => {
@@ -45,13 +45,14 @@ describe('ADD_TRIP', () => {
         type: 'ADD_TRIP',
         trip: {
           id: expect.any(String),
+          user: uid,
           ...tripData
         }
       })
 
       return tripsRef.doc(actions[0].trip.id).get()
     }).then(doc => {
-      expect(doc.data()).toEqual(tripData)
+      expect(doc.data()).toEqual({ user: uid, ...tripData })
       tripsRef.doc(doc.id).delete()
     }).then(() => {
       done()
@@ -86,8 +87,6 @@ describe('EDIT_TRIP', () => {
       return tripsRef.doc(id).get()
     }).then(snapshot => {
       expect(snapshot.data().title).toEqual(title)
-      tripsRef.doc(id).update({ title: trips[1].title })
-    }).then(() => {
       done()
     })
   })
@@ -115,13 +114,6 @@ describe('REMOVE_TRIP', () => {
       return tripsRef.doc(id).get()
     }).then(snapshot => {
       expect(snapshot).toBeFalsy
-      tripsRef.doc(id).set({
-        title: trips[0].title,
-        startDate: trips[0].startDate,
-        endDate: trips[0].endDate,
-        note: trips[0].note,
-      })
-    }).then(() => {
       done()
     })
   })

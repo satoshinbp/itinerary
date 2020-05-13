@@ -17,12 +17,13 @@ import events from '../fixtures/events'
 const uid = 'thisismytestuid'
 const defaultAuthState = { auth: { uid } }
 const createMockStore = configureMockStore([thunk])
+const tripsRef = db.collection('users').doc(uid).collection('trips')
 
 trips.forEach(({ id, title, startDate, endDate, note }) => {
-  db.collection('users').doc(uid).collection('trips').doc(id).set({ title, startDate, endDate, note })
+  tripsRef.doc(id).set({ title, startDate, endDate, note, user: uid })
 })
 events.forEach(({ id, tripId, title, date, startTime, endTime, location, note }) => {
-  db.collection('users').doc(uid).collection('trips').doc(tripId).collection('events').doc(id).set({ title, date, startTime, endTime, location, note })
+  tripsRef.doc(tripId).collection('events').doc(id).set({ title, date, startTime, endTime, location, note, user: uid })
 })
 
 describe('ADD_EVENT', () => {
@@ -36,7 +37,8 @@ describe('ADD_EVENT', () => {
 
   test('should add event to database and store', done => {
     const store = createMockStore(defaultAuthState)
-    const tripId = 'a'
+    const tripId = trips[0].id
+    const eventsRef = tripsRef.doc(tripId).collection('events')
     const eventData = {
       title: 'Beach Cafe',
       date: 86400,
@@ -50,18 +52,17 @@ describe('ADD_EVENT', () => {
       expect(actions[0]).toEqual({
         type: 'ADD_EVENT',
         event: {
-          id: expect.any(String),
           tripId,
+          id: expect.any(String),
+          user: uid,
           ...eventData
         }
       })
-      return db.collection('users').doc(uid).collection('trips').doc(tripId).collection('events').doc(actions[0].event.id).get()
+      return eventsRef.doc(actions[0].event.id).get()
     }).then(snapshot => {
-      expect(snapshot.data()).toEqual(eventData)
-      db.collection('users').doc(uid).collection('trips').doc(tripId).collection('events').doc(snapshot.id).delete()
-    }).then(() => {
-      done()
-    })
+      expect(snapshot.data()).toEqual({ tripId, user: uid, ...eventData })
+      eventsRef.doc(snapshot.id).delete()
+    }).then(() => done())
   })
 })
 
@@ -80,21 +81,20 @@ describe('EDIT_EVENT', () => {
 
   test('should edit event in database and store', done => {
     const store = createMockStore(defaultAuthState)
-    const id = events[1].id
+    const { tripId, id } = events[1]
+    const eventRef = tripsRef.doc(tripId).collection('events').doc(id)
     const title = '豊洲市場見学'
     const updates = { title }
-    store.dispatch(startEditEvent(id, updates)).then(() => {
+    store.dispatch(startEditEvent(tripId, id, updates)).then(() => {
       const actions = store.getActions()
       expect(actions[0]).toEqual({
         type: 'EDIT_EVENT',
         id,
         updates
       })
-      return db.collection('users').doc(uid).collection('trips').doc(events[1].tripId).collection('events').doc(id).get()
+      return eventRef.get()
     }).then(snapshot => {
       expect(snapshot.data().title).toEqual(title)
-      db.collection('users').doc(uid).collection('trips').doc(events[1].tripId).collection('events').doc(id).update({ title: events[1].title })
-    }).then(() => {
       done()
     })
   })
@@ -112,19 +112,18 @@ describe('REMOVE_EVENT', () => {
 
   test('should remove event from database and store', done => {
     const store = createMockStore(defaultAuthState)
-    const { tripId, id, title, date, startTime, endTime, location, note } = events[2]
-    store.dispatch(startRemoveEvent(id)).then(() => {
+    const { tripId, id } = events[2]
+    const eventRef = tripsRef.doc(tripId).collection('events').doc(id)
+    store.dispatch(startRemoveEvent(tripId, id)).then(() => {
       const actions = store.getActions()
       expect(actions[0]).toEqual({
         type: 'REMOVE_EVENT',
         id
       })
-      return db.collection('users').doc(uid).collection('trips').doc(tripId).collection('events').doc(id).get()
+      return eventRef.get()
     }).then(snapshot => {
       expect(snapshot).toBeFalsy
-      db.collection('users').doc(uid).collection('trips').doc(tripId).collection('events').doc(id).set({ title, date, startTime, endTime, location, note }).then(() => {
-        done()
-      })
+      done()
     })
   })
 })

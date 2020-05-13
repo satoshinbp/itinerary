@@ -18,7 +18,7 @@ test('should render EventItem correctly', () => {
 test('should remove event when trash icon clicked', () => {
   window.confirm = jest.fn(() => true)
   wrapper.find({ icon: 'trash-alt' }).simulate('click')
-  expect(startRemoveEvent).toBeCalledWith(events[0].id)
+  expect(startRemoveEvent).toBeCalledWith(events[0].tripId, events[0].id)
 })
 
 test('should set event id trip on click time', () => {
