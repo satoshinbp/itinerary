@@ -78,7 +78,7 @@ export const ScheduleDashboardPage = ({ trip, events, hotels, startAddEvent, sta
             <EventForm
               onSubmit={eventData => {
                 if (events.find(event => event.id === eventId)) {
-                  startEditEvent(eventId, eventData)
+                  startEditEvent(trip.id, eventId, eventData)
                 } else {
                   startAddEvent(trip.id, eventData)
                 }

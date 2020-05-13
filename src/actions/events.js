@@ -9,16 +9,16 @@ export const addEvent = event => ({
 export const startAddEvent = (tripId, eventData) => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid
+    const eventsRef = db.collection('users').doc(uid).collection('trips').doc(tripId).collection('events')
     const { title, date, startTime, endTime, location, note } = eventData
-    const event = { title, date, startTime, endTime, location, note }
+    const event = { title, date, startTime, endTime, location, note, user: uid, tripId }
 
-    return db.collection('users').doc(uid).collection('trips').doc(tripId).collection('events').add(event).then(snapshot => {
+    return eventsRef.add(event).then(snapshot => (
       dispatch(addEvent({
         id: snapshot.id,
-        tripId,
         ...event
       }))
-    })
+    ))
   }
 }
 
@@ -29,17 +29,11 @@ export const editEvent = (id, updates) => ({
   updates
 })
 
-export const startEditEvent = (id, updates) => {
-  return dispatch => {
-    return db.collectionGroup('events').get().then(querySnapshot => {
-      querySnapshot.forEach(queryDocumentSnapshot => {
-        if (queryDocumentSnapshot.id === id) {
-          queryDocumentSnapshot.ref.update(updates)
-        }
-      })
-    }).then(() => {
-      dispatch(editEvent(id, updates))
-    })
+export const startEditEvent = (tripId, id, updates) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid
+    const eventsRef = db.collection('users').doc(uid).collection('trips').doc(tripId).collection('events').doc(id)
+    return eventsRef.update(updates).then(() => dispatch(editEvent(id, updates)))
   }
 }
 
@@ -49,17 +43,11 @@ export const removeEvent = id => ({
   id
 })
 
-export const startRemoveEvent = id => {
-  return dispatch => {
-    return db.collectionGroup('events').get().then(querySnapshot => {
-      querySnapshot.forEach(queryDocumentSnapshot => {
-        if (queryDocumentSnapshot.id === id) {
-          queryDocumentSnapshot.ref.delete()
-        }
-      })
-    }).then(() => {
-      dispatch(removeEvent(id))
-    })
+export const startRemoveEvent = (tripId, id) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid
+    const eventsRef = db.collection('users').doc(uid).collection('trips').doc(tripId).collection('events').doc(id)
+    return eventsRef.delete().then(() => dispatch(removeEvent(id)))
   }
 }
 
@@ -72,19 +60,17 @@ export const setEvents = events => ({
 export const startSetEvents = () => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid
-    return db.collectionGroup('events').get().then(querySnapshot => {
-      const events = []
+    const events = []
 
-      querySnapshot.forEach(queryDocumentSnapshot => {
-        if (queryDocumentSnapshot.ref.parent.parent.parent.parent.id === uid) {
-          events.push({
-            id: queryDocumentSnapshot.id,
-            tripId: queryDocumentSnapshot.ref.parent.parent.id,
-            ...queryDocumentSnapshot.data()
-          })
-        }
+    return db.collectionGroup('events').where("user", "==", uid).get().then(querySnapshot => {
+      querySnapshot.forEach(snapshot => {
+        events.push({
+          id: snapshot.id,
+          tripId: snapshot.ref.parent.parent.id,
+          user: uid,
+          ...snapshot.data()
+        })
       })
-
       dispatch(setEvents(events))
     })
   }

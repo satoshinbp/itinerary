@@ -5,7 +5,7 @@ import moment from 'moment'
 import EventItem from './EventItem'
 import HotelItem from './HotelItem'
 
-export const ScheduleList = (props) => {
+export const ScheduleList = props => {
   return (
     <React.Fragment>
       <div className="schedule-list-header">

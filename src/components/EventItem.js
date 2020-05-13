@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import moment from 'moment'
 import { startRemoveEvent } from '../actions/events'
 
-export const EventItem = ({ id, title, startTime, endTime, location, setEventId, startRemoveEvent }) => {
+export const EventItem = ({ tripId, id, title, startTime, endTime, location, setEventId, startRemoveEvent }) => {
   const confirmRemoveEvent = () => {
     const result = confirm('Are you sure you want to delete this event?');
 
     if (result) {
-      startRemoveEvent(id)
+      startRemoveEvent(tripId, id)
     }
   }
 
@@ -34,7 +34,7 @@ export const EventItem = ({ id, title, startTime, endTime, location, setEventId,
 }
 
 const mapDispatchToProps = dispatch => ({
-  startRemoveEvent: id => dispatch(startRemoveEvent(id))
+  startRemoveEvent: (tripId, id) => dispatch(startRemoveEvent(tripId, id))
 })
 
 export default connect(undefined, mapDispatchToProps)(EventItem);

@@ -9,15 +9,16 @@ export const addTrip = trip => ({
 export const startAddTrip = tripData => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid
-    const {　title,　startDate,　endDate,　note　} = tripData
-    const trip = { title, startDate, endDate, note }
+    const tripsRef = db.collection('users').doc(uid).collection('trips')
+    const { title, startDate, endDate, note } = tripData
+    const trip = { title, startDate, endDate, note, user: uid }
 
-    return db.collection('users').doc(uid).collection('trips').add(trip).then(snapshot => {
+    return tripsRef.add(trip).then(snapshot => (
       dispatch(addTrip({
         id: snapshot.id,
         ...trip
       }))
-    })
+    ))
   }
 }
 
@@ -31,9 +32,9 @@ export const editTrip = (id, updates) => ({
 export const startEditTrip = (id, updates) => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid
-    return db.collection('users').doc(uid).collection('trips').doc(id).update(updates).then(() => {
-      dispatch(editTrip(id, updates))
-    })
+    const tripsRef = db.collection('users').doc(uid).collection('trips')
+
+    return tripsRef.doc(id).update(updates).then(() => dispatch(editTrip(id, updates)))
   }
 }
 
@@ -46,9 +47,9 @@ export const removeTrip = id => ({
 export const startRemoveTrip = id => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid
-    return db.collection('users').doc(uid).collection('trips').doc(id).delete().then(() => {
-      dispatch(removeTrip(id))
-    })
+    const tripsRef = db.collection('users').doc(uid).collection('trips')
+
+    return tripsRef.doc(id).delete().then(() => dispatch(removeTrip(id)))
   }
 }
 
@@ -61,12 +62,14 @@ export const setTrips = trips => ({
 export const startSetTrips = () => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid
-    return db.collection('users').doc(uid).collection('trips').get().then(snapshot => {
+    const tripsRef = db.collection('users').doc(uid).collection('trips')
+    return tripsRef.get().then(snapshot => {
       const trips = []
 
       snapshot.forEach(childSnapshot => {
         trips.push({
           id: childSnapshot.id,
+          user: uid,
           ...childSnapshot.data()
         })
       })

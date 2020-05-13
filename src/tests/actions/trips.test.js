@@ -15,10 +15,11 @@ import trips from '../fixtures/trips'
 
 const uid = 'thisismytestuid'
 const defaultAuthState = { auth: { uid } }
+const tripsRef = db.collection('users').doc(uid).collection('trips')
 const createMockStore = configureMockStore([thunk])
 
 trips.forEach(({ id, title, startDate, endDate, note }) => {
-  db.collection('users').doc(uid).collection('trips').doc(id).set({ title, startDate, endDate, note })
+  tripsRef.doc(id).set({ title, startDate, endDate, note })
 })
 
 describe('ADD_TRIP', () => {
@@ -48,10 +49,10 @@ describe('ADD_TRIP', () => {
         }
       })
 
-      return db.collection('users').doc(uid).collection('trips').doc(actions[0].trip.id).get()
+      return tripsRef.doc(actions[0].trip.id).get()
     }).then(doc => {
       expect(doc.data()).toEqual(tripData)
-      db.collection('users').doc(uid).collection('trips').doc(doc.id).delete()
+      tripsRef.doc(doc.id).delete()
     }).then(() => {
       done()
     })
@@ -82,10 +83,10 @@ describe('EDIT_TRIP', () => {
         id,
         updates
       })
-      return db.collection('users').doc(uid).collection('trips').doc(id).get()
+      return tripsRef.doc(id).get()
     }).then(snapshot => {
       expect(snapshot.data().title).toEqual(title)
-      db.collection('users').doc(uid).collection('trips').doc(id).update({ title: trips[1].title })
+      tripsRef.doc(id).update({ title: trips[1].title })
     }).then(() => {
       done()
     })
@@ -111,10 +112,10 @@ describe('REMOVE_TRIP', () => {
         type: 'REMOVE_TRIP',
         id
       })
-      return db.collection('users').doc(uid).collection('trips').doc(id).get()
+      return tripsRef.doc(id).get()
     }).then(snapshot => {
       expect(snapshot).toBeFalsy
-      db.collection('users').doc(uid).collection('trips').doc(id).set({
+      tripsRef.doc(id).set({
         title: trips[0].title,
         startDate: trips[0].startDate,
         endDate: trips[0].endDate,
